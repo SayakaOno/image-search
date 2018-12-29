@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 class NavBar extends Component {
   renderItems = () => {
-    if (this.props.items.length === 0) return;
     return React.Children.map(this.props.items, item => {
       return <li>{item}</li>;
     });
