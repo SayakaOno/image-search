@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class Search extends Component {
   state = {};
   render() {
-    const { location, term, onChange } = this.props;
+    const { location, term, onChange, onClick } = this.props;
     return (
       <div>
         <input
@@ -13,7 +13,7 @@ class Search extends Component {
           onChange={onChange}
         />
         <input name="term" type="text" value={term} onChange={onChange} />
-        <button>Search</button>
+        <button onClick={onClick}>Search</button>
       </div>
     );
   }
