@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Search from "./Search";
 import NavBar from "./NavBar";
 import ImageList from "./ImageList";
+import { google, url } from "../api/google";
 
 class App extends Component {
   state = {
@@ -9,24 +10,36 @@ class App extends Component {
     term: "",
     selectedIndex: null,
     navItems: [],
-    imageList: [["***", "###"]]
+    imageList: []
   };
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onButtonClick = () => {
-    // api request
+  onSearchSubmit = async (location, term) => {
+    const response = await google.get(url, {
+      params: { searchType: "image", q: location + term }
+    });
+    let data = response.data.items;
     const imageList = [];
+    data.forEach(item => {
+      imageList.push(item.image.thumbnailLink);
+    });
+    this.setState(prevState => {
+      return { imageList: [...prevState.imageList, imageList] };
+    });
+  };
+
+  onButtonClick = () => {
+    this.onSearchSubmit(this.state.location, this.state.term);
 
     this.setState(prevState => {
       let navItems = [...prevState.navItems];
       navItems.push(this.state.term);
       return {
         term: "",
-        navItems,
-        imageList: [...prevState.imageList, ["a", "b", "c"]]
+        navItems
       };
     });
   };
@@ -35,8 +48,6 @@ class App extends Component {
     const index = this.state.navItems.indexOf(item);
     this.setState({ selectedIndex: index });
   };
-
-  getImageList = index => {};
 
   render() {
     const { location, term, navItems, selectedIndex, imageList } = this.state;

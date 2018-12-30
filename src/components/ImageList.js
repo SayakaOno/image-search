@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 
 class ImageList extends Component {
-  state = {};
   render() {
-    return (
-      <div>
-        <p>{this.props.list}</p>
-      </div>
-    );
+    console.log(this.props.list);
+    {
+      if (!this.props.list) return null;
+    }
+    const items = React.Children.map(this.props.list, (item, index) => {
+      return (
+        <li key={index}>
+          <img src={item} />
+        </li>
+      );
+    });
+    return <ul>{items}</ul>;
   }
 }
 
