@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 class ImageList extends Component {
   render() {
-    console.log(this.props.list);
     {
       if (!this.props.list) return null;
     }

@@ -8,7 +8,7 @@ class App extends Component {
   state = {
     location: "",
     term: "",
-    selectedIndex: null,
+    selectedIndex: 0,
     navItems: [],
     imageList: []
   };
@@ -19,15 +19,23 @@ class App extends Component {
 
   onSearchSubmit = async (location, term) => {
     const response = await google.get(url, {
-      params: { searchType: "image", q: location + term }
+      params: {
+        searchType: "image",
+        q: location + "+" + term
+        //TODO: gl:
+      }
     });
     let data = response.data.items;
+    console.log(data);
     const imageList = [];
     data.forEach(item => {
-      imageList.push(item.image.thumbnailLink);
+      imageList.push(item.link);
     });
     this.setState(prevState => {
-      return { imageList: [...prevState.imageList, imageList] };
+      return {
+        imageList: [...prevState.imageList, imageList],
+        selectedIndex: prevState.imageList.length
+      };
     });
   };
 
