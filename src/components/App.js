@@ -9,7 +9,7 @@ class App extends Component {
     term: "",
     selectedIndex: null,
     navItems: [],
-    imageList: []
+    imageList: [["***", "###"]]
   };
 
   handleChange = e => {
@@ -26,7 +26,7 @@ class App extends Component {
       return {
         term: "",
         navItems,
-        imageList: [["a", "b", "c", "d"], "b", "c", "d"]
+        imageList: [...prevState.imageList, ["a", "b", "c"]]
       };
     });
   };
