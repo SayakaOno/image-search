@@ -13,8 +13,6 @@ class App extends Component {
     imageList: []
   };
 
-  searchButton = React.createRef();
-
   isInputEmpty = () => {
     return !this.state.location && !this.state.term;
   };
@@ -71,7 +69,6 @@ class App extends Component {
       <main>
         <React.StrictMode>
           <Search
-            ref={this.searchButton}
             location={location}
             term={term}
             onChange={this.handleChange}
