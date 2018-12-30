@@ -4,7 +4,13 @@ import NavBar from "./NavBar";
 import ImageList from "./ImageList";
 
 class App extends Component {
-  state = { location: "", term: "", selected: "", navItems: [] };
+  state = {
+    location: "",
+    term: "",
+    selectedIndex: null,
+    navItems: [],
+    imageList: []
+  };
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -12,22 +18,28 @@ class App extends Component {
 
   onButtonClick = () => {
     // api request
+    const imageList = [];
+
     this.setState(prevState => {
       let navItems = [...prevState.navItems];
       navItems.push(this.state.term);
       return {
         term: "",
-        navItems: navItems
+        navItems,
+        imageList: [["a", "b", "c", "d"], "b", "c", "d"]
       };
     });
   };
 
   handleSelect = item => {
-    this.setState({ selected: item });
+    const index = this.state.navItems.indexOf(item);
+    this.setState({ selectedIndex: index });
   };
 
+  getImageList = index => {};
+
   render() {
-    const { location, term, navItems } = this.state;
+    const { location, term, navItems, selectedIndex, imageList } = this.state;
     return (
       <React.Fragment>
         <React.StrictMode>
@@ -38,7 +50,7 @@ class App extends Component {
             onClick={this.onButtonClick}
           />
           <NavBar items={navItems} onSelect={this.handleSelect} />
-          <ImageList />
+          <ImageList list={imageList[selectedIndex]} />
         </React.StrictMode>
       </React.Fragment>
     );

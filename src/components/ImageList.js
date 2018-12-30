@@ -4,11 +4,9 @@ class ImageList extends Component {
   state = {};
   render() {
     return (
-      <ul>
-        <li>a</li>
-        <li>b</li>
-        <li>c</li>
-      </ul>
+      <div>
+        <p>{this.props.list}</p>
+      </div>
     );
   }
 }
