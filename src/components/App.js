@@ -15,18 +15,13 @@ class App extends Component {
 
   searchButton = React.createRef();
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-    setTimeout(() => {
-      if (!this.state.location && !this.state.term) {
-        this.searchButton.current.disabled = true;
-      } else {
-        this.searchButton.current.disabled = false;
-      }
-    }, 0);
+  isInputEmpty = () => {
+    return !this.state.location && !this.state.term;
   };
 
-  handleButton = () => {};
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   onSearchSubmit = async (location, term) => {
     const response = await google.get(url, {
@@ -50,6 +45,9 @@ class App extends Component {
   };
 
   onButtonClick = () => {
+    if (this.isInputEmpty()) {
+      return false;
+    }
     this.onSearchSubmit(this.state.location, this.state.term);
 
     this.setState(prevState => {

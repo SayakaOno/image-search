@@ -10,7 +10,7 @@ const Search = React.forwardRef((props, ref) => {
         ref={ref}
         className="ui yellow button"
         onClick={onClick}
-        disabled={true}
+        // disabled={true}
       >
         Search
       </button>

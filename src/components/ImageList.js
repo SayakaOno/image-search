@@ -14,7 +14,7 @@ class ImageList extends Component {
     });
     return (
       <div className="ui bottom attached active tab segment">
-        <ul>{items}</ul>
+        <ul className="ui small images">{items}</ul>
       </div>
     );
   }
