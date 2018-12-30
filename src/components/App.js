@@ -13,9 +13,20 @@ class App extends Component {
     imageList: []
   };
 
+  searchButton = React.createRef();
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+    setTimeout(() => {
+      if (!this.state.location && !this.state.term) {
+        this.searchButton.current.disabled = true;
+      } else {
+        this.searchButton.current.disabled = false;
+      }
+    }, 0);
   };
+
+  handleButton = () => {};
 
   onSearchSubmit = async (location, term) => {
     const response = await google.get(url, {
@@ -26,7 +37,6 @@ class App extends Component {
       }
     });
     let data = response.data.items;
-    console.log(data);
     const imageList = [];
     data.forEach(item => {
       imageList.push(item.link);
@@ -60,9 +70,10 @@ class App extends Component {
   render() {
     const { location, term, navItems, selectedIndex, imageList } = this.state;
     return (
-      <React.Fragment>
+      <main>
         <React.StrictMode>
           <Search
+            ref={this.searchButton}
             location={location}
             term={term}
             onChange={this.handleChange}
@@ -71,7 +82,7 @@ class App extends Component {
           <NavBar items={navItems} onSelect={this.handleSelect} />
           <ImageList list={imageList[selectedIndex]} />
         </React.StrictMode>
-      </React.Fragment>
+      </main>
     );
   }
 }

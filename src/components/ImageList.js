@@ -12,7 +12,11 @@ class ImageList extends Component {
         </li>
       );
     });
-    return <ul>{items}</ul>;
+    return (
+      <div className="ui bottom attached active tab segment">
+        <ul>{items}</ul>
+      </div>
+    );
   }
 }
 

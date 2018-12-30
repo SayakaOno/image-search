@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class NavBar extends Component {
   renderItems = () => {
     return React.Children.map(this.props.items, item => {
-      return <li>{item}</li>;
+      return <li className="active item">{item}</li>;
     });
   };
 
@@ -13,7 +13,16 @@ class NavBar extends Component {
   };
 
   render() {
-    return <ul onClick={e => this.onNavClick(e)}>{this.renderItems()}</ul>;
+    return (
+      <div className="navbar">
+        <ul
+          className="ui top attached tabular menu"
+          onClick={e => this.onNavClick(e)}
+        >
+          {this.renderItems()}
+        </ul>
+      </div>
+    );
   }
 }
 
