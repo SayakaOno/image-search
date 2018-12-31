@@ -63,8 +63,18 @@ class App extends Component {
     this.setState({ selectedIndex: index });
   };
 
+  renderResultComponents = () => {
+    const { navItems, selectedIndex, imageList } = this.state;
+    return this.state.imageList.length > 0 ? (
+      <React.Fragment>
+        <NavBar items={navItems} onSelect={this.handleSelect} />
+        <ImageList list={imageList[selectedIndex]} />
+      </React.Fragment>
+    ) : null;
+  };
+
   render() {
-    const { location, term, navItems, selectedIndex, imageList } = this.state;
+    const { location, term } = this.state;
     return (
       <main>
         <React.StrictMode>
@@ -74,8 +84,7 @@ class App extends Component {
             onChange={this.handleChange}
             onClick={this.onButtonClick}
           />
-          <NavBar items={navItems} onSelect={this.handleSelect} />
-          <ImageList list={imageList[selectedIndex]} />
+          {this.renderResultComponents()}
         </React.StrictMode>
       </main>
     );

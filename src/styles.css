@@ -18,3 +18,8 @@ button {
   display: block !important;
   margin: 0 auto !important;
 }
+
+/* ImageList */
+.ui.segment {
+  border-top: none;
+}
