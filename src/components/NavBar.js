@@ -2,8 +2,9 @@ import React, { Component } from "react";
 
 class NavBar extends Component {
   renderItems = () => {
-    return React.Children.map(this.props.items, item => {
-      return <li className="active item">{item}</li>;
+    return React.Children.map(this.props.items, (item, index) => {
+      let active = index === this.props.selectedIndex ? " active" : "";
+      return <li className={"item" + active}>{item}</li>;
     });
   };
 
@@ -14,14 +15,12 @@ class NavBar extends Component {
 
   render() {
     return (
-      <div className="navbar">
-        <ul
-          className="ui top attached tabular menu"
-          onClick={e => this.onNavClick(e)}
-        >
-          {this.renderItems()}
-        </ul>
-      </div>
+      <ul
+        className="ui top attached tabular menu"
+        onClick={e => this.onNavClick(e)}
+      >
+        {this.renderItems()}
+      </ul>
     );
   }
 }

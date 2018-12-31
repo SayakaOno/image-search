@@ -14,7 +14,7 @@ class App extends Component {
   };
 
   isInputEmpty = () => {
-    return !this.state.location && !this.state.term;
+    return !this.state.term;
   };
 
   handleChange = e => {
@@ -65,9 +65,13 @@ class App extends Component {
 
   renderResultComponents = () => {
     const { navItems, selectedIndex, imageList } = this.state;
-    return this.state.imageList.length > 0 ? (
+    return imageList.length > 0 ? (
       <React.Fragment>
-        <NavBar items={navItems} onSelect={this.handleSelect} />
+        <NavBar
+          items={navItems}
+          onSelect={this.handleSelect}
+          selectedIndex={selectedIndex}
+        />
         <ImageList list={imageList[selectedIndex]} />
       </React.Fragment>
     ) : null;
