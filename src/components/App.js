@@ -42,7 +42,7 @@ class App extends Component {
     });
   };
 
-  onButtonClick = () => {
+  handleSubmit = () => {
     if (this.isInputEmpty()) {
       return false;
     }
@@ -63,6 +63,29 @@ class App extends Component {
     this.setState({ selectedIndex: index });
   };
 
+  // shouldn't work when Japanese typed
+  handleKeyDown = e => {
+    if (e.key !== "Enter") {
+      return;
+    }
+    this.handleSubmit();
+  };
+
+  removeNavItem = () => {
+    this.setState(prevState => {
+      return {
+        navItems: prevState.navItems.filter((item, index) => {
+          console.log("index", index);
+          console.log("this.selectedIndex", this.state.selectedIndex);
+          return this.state.selectedIndex !== index;
+        }),
+        imageList: prevState.imageList.filter((item, index) => {
+          return this.state.selectedIndex !== index;
+        })
+      };
+    });
+  };
+
   renderResultComponents = () => {
     const { navItems, selectedIndex, imageList } = this.state;
     return imageList.length > 0 ? (
@@ -72,7 +95,10 @@ class App extends Component {
           onSelect={this.handleSelect}
           selectedIndex={selectedIndex}
         />
-        <ImageList list={imageList[selectedIndex]} />
+        <ImageList
+          list={imageList[selectedIndex]}
+          onRemove={this.removeNavItem}
+        />
       </React.Fragment>
     ) : null;
   };
@@ -86,7 +112,8 @@ class App extends Component {
             location={location}
             term={term}
             onChange={this.handleChange}
-            onClick={this.onButtonClick}
+            onClick={this.handleSubmit}
+            onKeyDown={this.handleKeyDown}
           />
           {this.renderResultComponents()}
         </React.StrictMode>
