@@ -22,14 +22,18 @@ class App extends Component {
   };
 
   onSearchSubmit = async (start = 1) => {
+    const term = this.state.term
+      ? this.state.term
+      : this.state.navItems[this.state.selectedIndex];
     const response = await google.get(url, {
       params: {
         searchType: "image",
-        q: this.state.location + "+" + this.state.term,
+        q: this.state.location + "+" + term,
         start: start
         //TODO: gl:
       }
     });
+
     let data = response.data.items;
     if (start === 1) {
       const imageList = [];
@@ -54,10 +58,8 @@ class App extends Component {
           return arr.slice();
         });
         imageList[prevState.selectedIndex] = updatedList;
-        console.log(imageList);
         return { imageList };
       });
-      console.log(this.state.imageList);
     }
   };
 
