@@ -2,6 +2,11 @@ main {
   padding: 50px;
 }
 
+/* NavBar */
+.navbar li:hover {
+  cursor: pointer;
+}
+
 /* Search */
 .search {
   margin-bottom: 30px;
@@ -29,4 +34,8 @@ button {
 }
 .ui.segment i {
   color: #999;
+}
+.image-list button {
+  margin-top: 20px !important;
+  margin-bottom: 30px !important;
 }

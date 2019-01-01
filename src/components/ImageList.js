@@ -5,7 +5,12 @@ class ImageList extends Component {
     let startNum = this.props.list.length + 1;
     if (startNum > 100) return null;
     return (
-      <button onClick={() => this.props.onLoadMore(startNum)}>More</button>
+      <button
+        className="ui orange basic button"
+        onClick={() => this.props.onLoadMore(startNum)}
+      >
+        More
+      </button>
     );
   };
 
@@ -18,7 +23,7 @@ class ImageList extends Component {
       );
     });
     return (
-      <div className="ui bottom attached active tab segment">
+      <div className="image-list ui bottom attached active tab segment">
         <i className="fas fa-times-circle" onClick={this.props.onRemove} />
         <ul className="ui small images">{items}</ul>
         {this.renderMoreButton()}
