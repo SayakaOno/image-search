@@ -21,32 +21,51 @@ class App extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onSearchSubmit = async (location, term) => {
+  onSearchSubmit = async (start = 1) => {
     const response = await google.get(url, {
       params: {
         searchType: "image",
-        q: location + "+" + term
+        q: this.state.location + "+" + this.state.term,
+        start: start
         //TODO: gl:
       }
     });
     let data = response.data.items;
-    const imageList = [];
-    data.forEach(item => {
-      imageList.push(item.link);
-    });
-    this.setState(prevState => {
-      return {
-        imageList: [...prevState.imageList, imageList],
-        selectedIndex: prevState.imageList.length
-      };
-    });
+    if (start === 1) {
+      const imageList = [];
+      data.forEach(item => {
+        imageList.push(item.link);
+      });
+      this.setState(prevState => {
+        return {
+          imageList: [...prevState.imageList, imageList],
+          selectedIndex: prevState.imageList.length
+        };
+      });
+    } else {
+      this.setState(prevState => {
+        const updatedList = prevState.imageList[
+          prevState.selectedIndex
+        ].slice();
+        data.forEach(item => {
+          updatedList.push(item.link);
+        });
+        let imageList = prevState.imageList.map(function(arr) {
+          return arr.slice();
+        });
+        imageList[prevState.selectedIndex] = updatedList;
+        console.log(imageList);
+        return { imageList };
+      });
+      console.log(this.state.imageList);
+    }
   };
 
   handleSubmit = () => {
     if (this.isInputEmpty()) {
       return false;
     }
-    this.onSearchSubmit(this.state.location, this.state.term);
+    this.onSearchSubmit();
 
     this.setState(prevState => {
       let navItems = [...prevState.navItems];
@@ -87,7 +106,7 @@ class App extends Component {
   };
 
   renderResultComponents = () => {
-    const { navItems, selectedIndex, imageList } = this.state;
+    const { navItems, selectedIndex, imageList, location, term } = this.state;
     return imageList.length > 0 ? (
       <React.Fragment>
         <NavBar
@@ -98,6 +117,7 @@ class App extends Component {
         <ImageList
           list={imageList[selectedIndex]}
           onRemove={this.removeNavItem}
+          onLoadMore={this.onSearchSubmit}
         />
       </React.Fragment>
     ) : null;
