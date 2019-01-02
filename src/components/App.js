@@ -132,7 +132,7 @@ class App extends Component {
   };
 
   renderResultComponents = () => {
-    const { navItems, selectedIndex, imageList, name, term } = this.state;
+    const { navItems, selectedIndex, imageList } = this.state;
     return (
       <React.Fragment>
         <NavBar

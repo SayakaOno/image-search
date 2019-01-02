@@ -1,14 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 
 const Search = React.forwardRef((props, ref) => {
   const { name, term, onChange, onClick, onKeyDown } = props;
+
   return (
     <div className="ui input search">
       <input
         name="name"
         type="text"
         value={name}
-        onFocus={true}
         onChange={onChange}
         placeholder="restaurant name"
       />

@@ -59,5 +59,9 @@ button {
 
 /* Loader */
 .loader-frame {
-  padding-top: 100px;
+  border: 1px solid #d4d4d5;
+  margin: 0 !important;
+}
+.loader-frame .ui.loader {
+  top: 25% !important;
 }
