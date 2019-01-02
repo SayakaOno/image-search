@@ -11,13 +11,17 @@ main {
 .search {
   margin-bottom: 30px;
 }
-.ui.input {
+.ui.input.search {
   display: block;
+  max-width: 300px;
+  margin: 0 auto;
 }
-input {
+.ui.input.search input {
   display: block;
+  width: 90% !important;
   margin: 0 auto !important;
   margin-bottom: 10px !important;
+  text-align: center !important;
 }
 button {
   display: block !important;

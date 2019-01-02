@@ -15,12 +15,20 @@ class App extends Component {
     loading: false
   };
 
+  searchButtonRef = React.createRef();
+
   isInputEmpty = () => {
     return !this.state.term;
   };
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+    const classNames = "ui yellow button";
+    setTimeout(() => {
+      this.state.location || this.state.term
+        ? (this.searchButtonRef.current.className = classNames)
+        : (this.searchButtonRef.current.className = classNames + " disabled");
+    }, 0);
   };
 
   onSearchSubmit = async (start = 1) => {
@@ -137,6 +145,7 @@ class App extends Component {
       <main>
         <React.StrictMode>
           <Search
+            ref={this.searchButtonRef}
             location={location}
             term={term}
             onChange={this.handleChange}
