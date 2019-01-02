@@ -15,6 +15,7 @@ main {
   display: block;
   max-width: 300px;
   margin: 0 auto;
+  margin-bottom: 70px;
 }
 .ui.input.search input {
   display: block;
@@ -26,6 +27,7 @@ main {
 button {
   display: block !important;
   margin: 0 auto !important;
+  margin-top: 20px !important;
 }
 
 /* ImageList */

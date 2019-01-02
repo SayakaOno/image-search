@@ -7,8 +7,9 @@ import Loader from "./Loader";
 
 class App extends Component {
   state = {
-    location: "",
+    name: "",
     term: "",
+    requestedName: "",
     selectedIndex: 0,
     navItems: [],
     imageList: [],
@@ -25,7 +26,7 @@ class App extends Component {
     this.setState({ [e.target.name]: e.target.value });
     const classNames = "ui yellow button";
     setTimeout(() => {
-      this.state.location || this.state.term
+      this.state.name || this.state.term
         ? (this.searchButtonRef.current.className = classNames)
         : (this.searchButtonRef.current.className = classNames + " disabled");
     }, 0);
@@ -38,7 +39,7 @@ class App extends Component {
     const response = await google.get(url, {
       params: {
         searchType: "image",
-        q: this.state.location + "+" + term,
+        q: this.state.name + "+" + term,
         start: start
         //TODO: gl:
       }
@@ -79,6 +80,9 @@ class App extends Component {
       return false;
     }
     this.setState({ loading: true });
+    if (this.state.requestedName !== this.state.name) {
+      this.setState({ navItems: [], imageList: [] });
+    }
     this.onSearchSubmit();
 
     this.setState(prevState => {
@@ -86,7 +90,8 @@ class App extends Component {
       navItems.push(this.state.term);
       return {
         term: "",
-        navItems
+        navItems,
+        requestedName: this.state.name
       };
     });
   };
@@ -118,7 +123,7 @@ class App extends Component {
   };
 
   renderResultComponents = () => {
-    const { navItems, selectedIndex, imageList, location, term } = this.state;
+    const { navItems, selectedIndex, imageList, name, term } = this.state;
     return (
       <React.Fragment>
         <NavBar
@@ -140,13 +145,13 @@ class App extends Component {
   };
 
   render() {
-    const { location, term } = this.state;
+    const { name, term } = this.state;
     return (
       <main>
         <React.StrictMode>
           <Search
             ref={this.searchButtonRef}
-            location={location}
+            name={name}
             term={term}
             onChange={this.handleChange}
             onClick={this.handleSubmit}
