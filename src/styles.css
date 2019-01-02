@@ -3,6 +3,34 @@ main {
 }
 
 /* NavBar */
+.navbar {
+  overflow: hidden;
+}
+.navbar-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
+  box-sizing: content-box;
+}
+.navbar .ui.menu {
+  display: block !important;
+  margin-bottom: 1px !important;
+  width: 500px !important;
+}
+.navbar ul {
+  padding-left: 0;
+}
+.navbar li.item {
+  float: left;
+}
+li.item.active {
+  padding-bottom: 15px !important;
+}
+.ui.menu:not(.vertical) .item {
+  display: block !important;
+  float: left !important;
+}
 .navbar li:hover {
   cursor: pointer;
 }
@@ -43,6 +71,9 @@ button {
   margin: 20px;
   padding: 0.3em 0.5em;
 }
+.image-list {
+  margin-top: -11px !important; /*TODO: need to calculate*/
+}
 .image-list i {
   color: #999;
   position: sticky;
@@ -56,11 +87,18 @@ button {
   margin-top: 20px !important;
   margin-bottom: 30px !important;
 }
+.ui.attached.tabular.menu {
+  width: fit-content;
+}
+.ui.attached.menu {
+  width: fit-content !important;
+}
 
 /* Loader */
 .loader-frame {
   border: 1px solid #d4d4d5;
   margin: 0 !important;
+  margin-top: -11px !important;
 }
 .loader-frame .ui.loader {
   top: 25% !important;

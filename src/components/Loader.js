@@ -22,8 +22,7 @@ class Loader extends React.Component {
       <div
         className="loader-frame ui segment"
         style={{
-          height:
-            window.innerHeight - document.querySelector(".navbar").clientHeight
+          height: window.innerHeight - 40
         }}
       >
         <div className="ui active inverted dimmer">

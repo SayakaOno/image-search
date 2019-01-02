@@ -14,13 +14,14 @@ class NavBar extends Component {
   };
 
   render() {
-    return (
-      <ul
-        className="navbar ui top attached tabular menu"
-        onClick={this.onNavClick}
-      >
-        {this.renderItems()}
-      </ul>
+    return this.props.items.length === 0 ? null : (
+      <div className="navbar">
+        <div className="navbar-container">
+          <ul className="ui top tabular menu" onClick={this.onNavClick}>
+            {this.renderItems()}
+          </ul>
+        </div>
+      </div>
     );
   }
 }
