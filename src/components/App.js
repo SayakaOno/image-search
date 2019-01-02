@@ -44,7 +44,6 @@ class App extends Component {
         //TODO: gl:
       }
     });
-
     let data = response.data.items;
     if (start === 1) {
       const imageList = [];

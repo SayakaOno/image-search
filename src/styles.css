@@ -16,7 +16,9 @@ main {
 .navbar .ui.menu {
   display: block !important;
   margin-bottom: 1px !important;
-  width: 500px !important;
+  box-sizing: content-box;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .navbar ul {
   padding-left: 0;
