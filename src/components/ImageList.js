@@ -28,8 +28,19 @@ class ImageList extends Component {
     return (
       <div className="image-list ui bottom attached active tab segment">
         <i className="fas fa-times-circle" onClick={this.props.onRemove} />
-        <ul className="ui small images">{items}</ul>
-        {this.renderMoreButton()}
+        <div
+          className="image-frame"
+          style={{
+            height:
+              window.innerHeight -
+              document.querySelector(".navbar").clientHeight
+          }}
+        >
+          <div>
+            <ul className="ui small images">{items}</ul>
+            {this.renderMoreButton()}
+          </div>
+        </div>
       </div>
     );
   }

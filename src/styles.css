@@ -25,15 +25,26 @@ button {
 }
 
 /* ImageList */
+.image-frame {
+  overflow: auto;
+  overflow-x: hidden;
+}
 .ui.attached.segment {
   border-top: none;
 }
 .ui.segment {
   border-top: none;
+  margin: 20px;
   padding: 0.3em 0.5em;
 }
-.ui.segment i {
+.image-list i {
   color: #999;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+.image-list ul {
+  padding-left: 20px;
 }
 .image-list button {
   margin-top: 20px !important;
