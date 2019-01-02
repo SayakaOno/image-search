@@ -17,7 +17,7 @@ class NavBar extends Component {
     return (
       <ul
         className="navbar ui top attached tabular menu"
-        onClick={e => this.onNavClick(e)}
+        onClick={this.onNavClick}
       >
         {this.renderItems()}
       </ul>

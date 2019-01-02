@@ -15,6 +15,9 @@ class ImageList extends Component {
   };
 
   render() {
+    if (this.props.list === undefined) {
+      return null;
+    }
     const items = React.Children.map(this.props.list, (item, index) => {
       return (
         <li key={index}>

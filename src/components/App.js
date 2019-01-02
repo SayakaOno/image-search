@@ -3,6 +3,7 @@ import Search from "./Search";
 import NavBar from "./NavBar";
 import ImageList from "./ImageList";
 import { google, url } from "../api/google";
+import Loader from "./Loader";
 
 class App extends Component {
   state = {
@@ -10,7 +11,8 @@ class App extends Component {
     term: "",
     selectedIndex: 0,
     navItems: [],
-    imageList: []
+    imageList: [],
+    loading: false
   };
 
   isInputEmpty = () => {
@@ -43,7 +45,8 @@ class App extends Component {
       this.setState(prevState => {
         return {
           imageList: [...prevState.imageList, imageList],
-          selectedIndex: prevState.imageList.length
+          selectedIndex: prevState.imageList.length,
+          loading: false
         };
       });
     } else {
@@ -58,7 +61,7 @@ class App extends Component {
           return arr.slice();
         });
         imageList[prevState.selectedIndex] = updatedList;
-        return { imageList };
+        return { imageList, loading: false };
       });
     }
   };
@@ -67,6 +70,7 @@ class App extends Component {
     if (this.isInputEmpty()) {
       return false;
     }
+    this.setState({ loading: true });
     this.onSearchSubmit();
 
     this.setState(prevState => {
@@ -96,8 +100,6 @@ class App extends Component {
     this.setState(prevState => {
       return {
         navItems: prevState.navItems.filter((item, index) => {
-          console.log("index", index);
-          console.log("this.selectedIndex", this.state.selectedIndex);
           return this.state.selectedIndex !== index;
         }),
         imageList: prevState.imageList.filter((item, index) => {
@@ -109,20 +111,24 @@ class App extends Component {
 
   renderResultComponents = () => {
     const { navItems, selectedIndex, imageList, location, term } = this.state;
-    return imageList.length > 0 ? (
+    return (
       <React.Fragment>
         <NavBar
           items={navItems}
           onSelect={this.handleSelect}
           selectedIndex={selectedIndex}
         />
-        <ImageList
-          list={imageList[selectedIndex]}
-          onRemove={this.removeNavItem}
-          onLoadMore={this.onSearchSubmit}
-        />
+        {this.state.loading ? (
+          <Loader />
+        ) : (
+          <ImageList
+            list={imageList[selectedIndex]}
+            onRemove={this.removeNavItem}
+            onLoadMore={this.onSearchSubmit}
+          />
+        )}
       </React.Fragment>
-    ) : null;
+    );
   };
 
   render() {
