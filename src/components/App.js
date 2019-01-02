@@ -77,12 +77,21 @@ class App extends Component {
 
   handleSubmit = () => {
     if (this.isInputEmpty()) {
-      return false;
+      alert("Please enter menu!");
+      return;
     }
-    this.setState({ loading: true });
+    const selectedIndex = this.state.navItems.findIndex(
+      item => item === this.state.term
+    );
+    if (selectedIndex !== -1) {
+      this.setState({ selectedIndex, term: "" });
+      return;
+    }
+
     if (this.state.requestedName !== this.state.name) {
       this.setState({ navItems: [], imageList: [] });
     }
+    this.setState({ loading: true });
     this.onSearchSubmit();
 
     this.setState(prevState => {
