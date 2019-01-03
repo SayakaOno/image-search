@@ -19,9 +19,9 @@ class App extends Component {
   };
 
   //for test
-  componentDidMount() {
-    this.setState(testdata);
-  }
+  // componentDidMount() {
+  //   this.setState(testdata);
+  // }
 
   componentDidUpdate() {
     if (!this.imageListRef.current) {
@@ -53,10 +53,11 @@ class App extends Component {
     this.setState({ loading: true });
     const term = this.state.term;
     try {
-      // What for ...?
-      // const term = this.state.term
-      //   ? this.state.term
-      //   : this.state.navItems[this.state.selectedIndex];
+      // for load more
+      const term = this.state.term
+        ? this.state.term
+        : this.state.navItems[this.state.selectedIndex];
+      console.log(term);
       const response = await google.get(url, {
         params: {
           searchType: "image",
@@ -66,8 +67,8 @@ class App extends Component {
         }
       });
       let data = response.data.items;
-      let imageList;
-      let selectedIndex;
+      let imageList = [];
+      let selectedIndex = this.state.selectedIndex;
 
       if (start === 1) {
         imageList = [];

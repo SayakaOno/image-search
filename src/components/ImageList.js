@@ -32,8 +32,7 @@ const ImageList = React.forwardRef((props, ref) => {
         className="image-frame"
         // style={{
         //   height:
-        //     window.innerHeight -
-        //     document.querySelector(".navbar").clientHeight
+        //     window.innerHeight - document.querySelector(".navbar").clientHeight
         // }}
       >
         <div>
