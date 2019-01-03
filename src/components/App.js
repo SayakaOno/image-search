@@ -24,6 +24,9 @@ class App extends Component {
   }
 
   componentDidUpdate() {
+    if (!this.imageListRef.current) {
+      return;
+    }
     if (this.state.imageListWidth !== this.imageListRef.current.offsetWidth) {
       this.setState({ imageListWidth: this.imageListRef.current.offsetWidth });
     }
@@ -47,44 +50,65 @@ class App extends Component {
   };
 
   onSearchSubmit = async (start = 1) => {
-    const term = this.state.term
-      ? this.state.term
-      : this.state.navItems[this.state.selectedIndex];
-    const response = await google.get(url, {
-      params: {
-        searchType: "image",
-        q: this.state.name + "+" + term,
-        start: start
-        //TODO: gl:
-      }
-    });
-    let data = response.data.items;
-    if (start === 1) {
-      const imageList = [];
-      data.forEach(item => {
-        imageList.push(item.link);
+    this.setState({ loading: true });
+    const term = this.state.term;
+    try {
+      // What for ...?
+      // const term = this.state.term
+      //   ? this.state.term
+      //   : this.state.navItems[this.state.selectedIndex];
+      const response = await google.get(url, {
+        params: {
+          searchType: "image",
+          q: this.state.name + "+" + term,
+          start: start
+          //TODO: gl:
+        }
       });
-      this.setState(prevState => {
-        return {
-          imageList: [...prevState.imageList, imageList],
-          selectedIndex: prevState.imageList.length,
-          loading: false
-        };
-      });
-    } else {
-      this.setState(prevState => {
-        const updatedList = prevState.imageList[
-          prevState.selectedIndex
+      let data = response.data.items;
+      let imageList;
+      let selectedIndex;
+
+      if (start === 1) {
+        imageList = [];
+        data.forEach(item => {
+          imageList.push(item.link);
+        });
+        imageList = [...this.state.imageList, imageList];
+        selectedIndex = this.state.imageList.length;
+      } else {
+        const updatedList = this.state.imageList[
+          this.state.selectedIndex
         ].slice();
         data.forEach(item => {
           updatedList.push(item.link);
         });
-        let imageList = prevState.imageList.map(function(arr) {
+        imageList = this.state.imageList.map(function(arr) {
           return arr.slice();
         });
-        imageList[prevState.selectedIndex] = updatedList;
-        return { imageList, loading: false };
+        imageList[this.state.selectedIndex] = updatedList;
+      }
+      this.setState(prevState => {
+        let navItems = [...prevState.navItems];
+        navItems.push(this.state.term);
+        return {
+          term: "",
+          navItems,
+          selectedIndex,
+          imageList,
+          requestedName: this.state.name,
+          loading: false
+        };
       });
+    } catch (e) {
+      this.setState({ loading: false, term: "" });
+      setTimeout(
+        () =>
+          alert(
+            `I am sorry but something went wrong... :(\nPlease ask your server what "${term}" is.`
+          ),
+        100
+      );
     }
   };
 
@@ -104,18 +128,7 @@ class App extends Component {
     if (this.state.requestedName !== this.state.name) {
       this.setState({ navItems: [], imageList: [] });
     }
-    this.setState({ loading: true });
     this.onSearchSubmit();
-
-    this.setState(prevState => {
-      let navItems = [...prevState.navItems];
-      navItems.push(this.state.term);
-      return {
-        term: "",
-        navItems,
-        requestedName: this.state.name
-      };
-    });
   };
 
   handleSelect = item => {
