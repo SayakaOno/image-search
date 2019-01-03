@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import ImageList from "./ImageList";
 import { google, url } from "../api/google";
 import Loader from "./Loader";
+import testdata from "../testdata/data";
 
 class App extends Component {
   state = {
@@ -15,6 +16,11 @@ class App extends Component {
     imageList: [],
     loading: false
   };
+
+  //for test
+  componentDidMount() {
+    this.setState(testdata);
+  }
 
   searchButtonRef = React.createRef();
 
@@ -118,6 +124,10 @@ class App extends Component {
   };
 
   removeNavItem = () => {
+    const selectedIndex = Math.min(
+      this.state.navItems.length - 2,
+      this.state.selectedIndex
+    );
     this.setState(prevState => {
       return {
         navItems: prevState.navItems.filter((item, index) => {
@@ -125,7 +135,8 @@ class App extends Component {
         }),
         imageList: prevState.imageList.filter((item, index) => {
           return this.state.selectedIndex !== index;
-        })
+        }),
+        selectedIndex
       };
     });
   };

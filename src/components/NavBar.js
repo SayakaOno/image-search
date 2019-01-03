@@ -1,22 +1,22 @@
 import React, { Component } from "react";
 
 class NavBar extends Component {
-  state = { navbarWidth: 0, itemCount: 0 };
+  state = { navbarWidth: 0 };
 
   componentDidMount() {
     this.setState({ itemCount: this.props.items.length });
   }
 
   componentDidUpdate() {
-    if (this.state.itemCount !== this.props.items.length) {
-      this.setState(prevState => {
-        const listItems = document.querySelectorAll(".navbar li");
-        const listItemArray = Array.from(listItems);
-        const navbarWidth = listItemArray.reduce(
-          (sum, current) => sum + current.offsetWidth,
-          0
-        );
-        return { navbarWidth, itemCount: prevState.itemCount + 1 };
+    const listItems = document.querySelectorAll(".navbar li");
+    const listItemArray = Array.from(listItems);
+    const navbarWidth = listItemArray.reduce(
+      (sum, current) => sum + current.offsetWidth,
+      0
+    );
+    if (this.state.navbarWidth !== navbarWidth) {
+      this.setState(() => {
+        return { navbarWidth };
       });
     }
   }

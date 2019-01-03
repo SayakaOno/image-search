@@ -24,3 +24,4 @@ yarn-error.log*
 
 #
 /src/api/google.js
+/src/testdata

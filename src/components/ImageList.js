@@ -30,11 +30,11 @@ class ImageList extends Component {
         <i className="fas fa-times-circle" onClick={this.props.onRemove} />
         <div
           className="image-frame"
-          style={{
-            height:
-              window.innerHeight -
-              document.querySelector(".navbar").clientHeight
-          }}
+          // style={{
+          //   height:
+          //     window.innerHeight -
+          //     document.querySelector(".navbar").clientHeight
+          // }}
         >
           <div>
             <ul className="ui small images">{items}</ul>
