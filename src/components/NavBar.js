@@ -21,7 +21,9 @@ class NavBar extends Component {
     }
   }
 
-  getNavbarWidth() {}
+  getNavbarWidth() {
+    return Math.max(this.props.imageListWidth, this.state.navbarWidth + 20);
+  }
 
   renderItems = () => {
     return React.Children.map(this.props.items, (item, index) => {
@@ -43,7 +45,7 @@ class NavBar extends Component {
             className="ui top tabular menu"
             onClick={this.onNavClick}
             style={{
-              width: this.state.navbarWidth + 20
+              width: this.getNavbarWidth()
             }}
           >
             {this.renderItems()}

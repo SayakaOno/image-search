@@ -14,6 +14,7 @@ class App extends Component {
     selectedIndex: 0,
     navItems: [],
     imageList: [],
+    imageListWidth: 0,
     loading: false
   };
 
@@ -22,7 +23,14 @@ class App extends Component {
     this.setState(testdata);
   }
 
+  componentDidUpdate() {
+    if (this.state.imageListWidth !== this.imageListRef.current.offsetWidth) {
+      this.setState({ imageListWidth: this.imageListRef.current.offsetWidth });
+    }
+  }
+
   searchButtonRef = React.createRef();
+  imageListRef = React.createRef();
 
   isInputEmpty = () => {
     return !this.state.term;
@@ -149,11 +157,13 @@ class App extends Component {
           items={navItems}
           onSelect={this.handleSelect}
           selectedIndex={selectedIndex}
+          imageListWidth={this.state.imageListWidth}
         />
         {this.state.loading ? (
           <Loader />
         ) : (
           <ImageList
+            ref={this.imageListRef}
             list={imageList[selectedIndex]}
             onRemove={this.removeNavItem}
             onLoadMore={this.onSearchSubmit}
