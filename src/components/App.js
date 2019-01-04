@@ -22,24 +22,24 @@ class App extends Component {
   // componentDidMount() {
   //   this.setState(testdata);
   // }
-  fixResultComponent() {
-    const imageframe = document.querySelector(".image-frame");
-    if (document.querySelector(".navbar").getBoundingClientRect().top > 10) {
-      imageframe.style.overflowY = "hidden";
-      imageframe.style.paddingRight = "10px";
-    } else {
-      imageframe.style.overflowY = "scroll";
-      imageframe.style.paddingRight = 0;
-    }
-  }
+  // fixResultComponent() {
+  //   const imageframe = document.querySelector(".image-frame");
+  //   if (document.querySelector(".navbar").getBoundingClientRect().top > 10) {
+  //     imageframe.style.overflowY = "hidden";
+  //     imageframe.style.paddingRight = "10px";
+  //   } else {
+  //     imageframe.style.overflowY = "scroll";
+  //     imageframe.style.paddingRight = 0;
+  //   }
+  // }
 
-  componentDidMount() {
-    window.addEventListener("scroll", this.fixResultComponent);
-  }
+  // componentDidMount() {
+  //   window.addEventListener("scroll", this.fixResultComponent);
+  // }
 
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.fixResultComponent);
-  }
+  // componentWillUnmount() {
+  //   window.removeEventListener("scroll", this.fixResultComponent);
+  // }
 
   componentDidUpdate() {
     if (!this.imageListRef.current) {
