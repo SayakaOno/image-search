@@ -1,28 +1,51 @@
 import React, { Component } from "react";
 
 class NavBar extends Component {
-  state = { navbarWidth: 0 };
+  state = { ulWidth: 0, itemCount: 0 };
 
   componentDidMount() {
     this.setState({ itemCount: this.props.items.length });
   }
 
   componentDidUpdate() {
-    const listItems = document.querySelectorAll(".navbar li");
-    const listItemArray = Array.from(listItems);
-    const navbarWidth = listItemArray.reduce(
-      (sum, current) => sum + current.offsetWidth,
-      0
-    );
-    if (this.state.navbarWidth !== navbarWidth) {
+    if (this.state.itemCount !== this.props.items.length) {
+      this.setState({ itemCount: this.props.items.length });
+    } else {
+      return;
+    }
+    const lis = document.querySelectorAll(".navbar li");
+    const ulWidth = this.getItemsWidth(lis);
+    if (this.state.ulWidth !== ulWidth) {
       this.setState(() => {
-        return { navbarWidth };
+        return { ulWidth };
       });
+    }
+    if (!lis[this.props.selectedIndex] || this.props.imageListWidth === 0) {
+      return;
+    }
+    const scrollLeft =
+      this.getItemsWidth(lis, this.props.selectedIndex + 1) -
+      this.props.imageListWidth +
+      30;
+    if (scrollLeft > 0) {
+      setTimeout(() => {
+        document.querySelector(".navbar-container").scrollLeft = scrollLeft;
+      }, 0);
     }
   }
 
-  getNavbarWidth() {
-    return Math.max(this.props.imageListWidth, this.state.navbarWidth + 20);
+  getItemsWidth = (arrayLike, length = arrayLike.length) => {
+    const listItemArray = Array.from(arrayLike);
+    listItemArray.length = length;
+    const itemsWidth = listItemArray.reduce(
+      (sum, current) => sum + current.offsetWidth,
+      0
+    );
+    return itemsWidth;
+  };
+
+  getUlWidth() {
+    return Math.max(this.props.imageListWidth, this.state.ulWidth + 20);
   }
 
   renderItems = () => {
@@ -35,6 +58,21 @@ class NavBar extends Component {
   onNavClick = e => {
     if (e.target.tagName !== "LI") return;
     this.props.onSelect(e.target.innerHTML);
+    this.handleScroll(e.target);
+  };
+
+  handleScroll = selectedNav => {
+    let listItems = document.querySelectorAll(".navbar li");
+    if (
+      document.querySelector(".navbar-container").getBoundingClientRect().left >
+      selectedNav.getBoundingClientRect().left
+    ) {
+      document.querySelector(".navbar-container").scrollLeft =
+        this.getItemsWidth(
+          listItems,
+          [].slice.call(listItems).indexOf(selectedNav)
+        ) - 20;
+    }
   };
 
   render() {
@@ -45,7 +83,7 @@ class NavBar extends Component {
             className="ui top tabular menu"
             onClick={this.onNavClick}
             style={{
-              width: this.getNavbarWidth()
+              width: this.getUlWidth()
             }}
           >
             {this.renderItems()}

@@ -57,7 +57,6 @@ class App extends Component {
       const term = this.state.term
         ? this.state.term
         : this.state.navItems[this.state.selectedIndex];
-      console.log(term);
       const response = await google.get(url, {
         params: {
           searchType: "image",
