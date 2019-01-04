@@ -23,10 +23,13 @@ class App extends Component {
   //   this.setState(testdata);
   // }
   fixResultComponent() {
+    const imageframe = document.querySelector(".image-frame");
     if (document.querySelector(".navbar").getBoundingClientRect().top > 10) {
-      document.querySelector(".image-frame").style.overflowY = "hidden";
+      imageframe.style.overflowY = "hidden";
+      imageframe.style.paddingRight = "10px";
     } else {
-      document.querySelector(".image-frame").style.overflowY = "scroll";
+      imageframe.style.overflowY = "scroll";
+      imageframe.style.paddingRight = 0;
     }
   }
 
