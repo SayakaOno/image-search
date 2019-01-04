@@ -22,6 +22,21 @@ class App extends Component {
   // componentDidMount() {
   //   this.setState(testdata);
   // }
+  fixResultComponent() {
+    if (document.querySelector(".navbar").getBoundingClientRect().top > 10) {
+      document.querySelector(".image-frame").style.overflowY = "hidden";
+    } else {
+      document.querySelector(".image-frame").style.overflowY = "scroll";
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.fixResultComponent);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.fixResultComponent);
+  }
 
   componentDidUpdate() {
     if (!this.imageListRef.current) {

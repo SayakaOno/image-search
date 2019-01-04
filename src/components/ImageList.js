@@ -27,14 +27,14 @@ const ImageList = React.forwardRef((props, ref) => {
       ref={ref}
       className="image-list ui bottom attached active tab segment"
       style={{
-        height: document.documentElement.clientHeight - 50
+        height: document.documentElement.clientHeight - 60
       }}
     >
       <i className="fas fa-times-circle" onClick={props.onRemove} />
       <div
         className="image-frame"
         style={{
-          height: document.documentElement.clientHeight - 90
+          height: document.documentElement.clientHeight - 100
         }}
       >
         <div>
