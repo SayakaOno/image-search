@@ -14,10 +14,6 @@ const ImageList = React.forwardRef((props, ref) => {
     );
   };
 
-  // render() {
-  if (props.list === undefined) {
-    return null;
-  }
   const items = React.Children.map(props.list, (item, index) => {
     return (
       <li key={index}>
@@ -25,15 +21,21 @@ const ImageList = React.forwardRef((props, ref) => {
       </li>
     );
   });
-  return (
-    <div ref={ref} className="image-list ui bottom attached active tab segment">
+
+  return props.list === undefined ? null : (
+    <div
+      ref={ref}
+      className="image-list ui bottom attached active tab segment"
+      style={{
+        height: document.documentElement.clientHeight - 50
+      }}
+    >
       <i className="fas fa-times-circle" onClick={props.onRemove} />
       <div
         className="image-frame"
-        // style={{
-        //   height:
-        //     window.innerHeight - document.querySelector(".navbar").clientHeight
-        // }}
+        style={{
+          height: document.documentElement.clientHeight - 90
+        }}
       >
         <div>
           <ul className="ui small images">{items}</ul>
@@ -42,7 +44,6 @@ const ImageList = React.forwardRef((props, ref) => {
       </div>
     </div>
   );
-  // }
 });
 
 export default ImageList;
