@@ -74,12 +74,12 @@ class App extends Component {
 
   onSearchSubmit = async (start = 1, e = null) => {
     this.setState({ loading: true });
-    const term = this.state.term;
+    let term = this.state.term;
     try {
       // for load more
-      const term = this.state.term
-        ? this.state.term
-        : this.state.navItems[this.state.selectedIndex];
+      if (!term) {
+        term = this.state.navItems[this.state.selectedIndex];
+      }
       const response = await google.get(url, {
         params: {
           searchType: "image",

@@ -13,10 +13,9 @@ class NavBar extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.ulWidth || !this.ulRef.current) {
+    if (!this.ulRef.current || !this.props.imageListWidth) {
       return;
     }
-    this.ulRef.current.style.width = this.getUlWidth();
     if (this.state.itemCount !== this.props.items.length) {
       this.setState({ itemCount: this.props.items.length });
     } else {
@@ -29,6 +28,7 @@ class NavBar extends Component {
         return { ulWidth };
       });
     }
+    this.ulRef.current.style.width = this.getUlWidth(ulWidth) + "px";
     if (!lis[this.props.selectedIndex] || this.props.imageListWidth === 0) {
       return;
     }
@@ -53,8 +53,8 @@ class NavBar extends Component {
     return itemsWidth;
   };
 
-  getUlWidth() {
-    return Math.max(this.props.imageListWidth, this.state.ulWidth + 20);
+  getUlWidth(ulWidth = this.state.ulWidth) {
+    return Math.max(this.props.imageListWidth, ulWidth + 25);
   }
 
   renderItems = () => {
@@ -92,9 +92,6 @@ class NavBar extends Component {
             ref={this.ulRef}
             className="ui top tabular menu"
             onClick={this.onNavClick}
-            style={{
-              width: this.getUlWidth()
-            }}
           >
             {this.renderItems()}
           </ul>

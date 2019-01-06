@@ -7,7 +7,7 @@ main {
 .navbar {
   overflow: hidden;
   position: relative;
-  width: fit-content;
+  width: calc(100% + 2px);
   margin-left: -1px;
 }
 .navbar-container {
