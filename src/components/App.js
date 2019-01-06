@@ -15,7 +15,8 @@ class App extends Component {
     navItems: [],
     imageList: [],
     imageListWidth: 0,
-    loading: false
+    loading: false,
+    images: []
   };
 
   //for test
@@ -67,7 +68,7 @@ class App extends Component {
     }, 0);
   };
 
-  onSearchSubmit = async (start = 1) => {
+  onSearchSubmit = async (start = 1, e = null) => {
     this.setState({ loading: true });
     const term = this.state.term;
     try {
@@ -86,6 +87,7 @@ class App extends Component {
       let data = response.data.items;
       let imageList = [];
       let selectedIndex = this.state.selectedIndex;
+      let images = [];
 
       if (start === 1) {
         imageList = [];
@@ -94,6 +96,10 @@ class App extends Component {
         });
         imageList = [...this.state.imageList, imageList];
         selectedIndex = this.state.imageList.length;
+
+        //* for new state *//
+        let newImage = { term: this.state.term, list: data };
+        images = this.state.images.concat(newImage);
       } else {
         const updatedList = this.state.imageList[
           this.state.selectedIndex
@@ -105,20 +111,31 @@ class App extends Component {
           return arr.slice();
         });
         imageList[this.state.selectedIndex] = updatedList;
+
+        //* for new state *//
+        const updatedImages = this.state.images[selectedIndex].list.concat(
+          data
+        );
+        images = this.state.images.slice();
+        images[selectedIndex].list = updatedImages;
       }
-      if (!(this.state.term && imageList)) {
+
+      if (e && !this.state.term) {
         return;
       }
       this.setState(prevState => {
         let navItems = [...prevState.navItems];
-        navItems.push(this.state.term);
+        if (start === 1) {
+          navItems.push(this.state.term);
+        }
         return {
           term: "",
           navItems,
           selectedIndex,
           imageList,
           requestedName: this.state.name,
-          loading: false
+          loading: false,
+          images
         };
       });
     } catch (e) {
@@ -133,7 +150,7 @@ class App extends Component {
     }
   };
 
-  handleSubmit = () => {
+  handleSubmit = e => {
     if (this.isInputEmpty()) {
       alert("Please enter menu!");
       return;
@@ -149,7 +166,7 @@ class App extends Component {
     if (this.state.requestedName !== this.state.name) {
       this.setState({ navItems: [], imageList: [] });
     }
-    this.onSearchSubmit();
+    this.onSearchSubmit(1, e);
   };
 
   handleSelect = item => {
