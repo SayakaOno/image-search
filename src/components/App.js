@@ -7,17 +7,22 @@ import Loader from "./Loader";
 import testdata from "../testdata/data";
 
 class App extends Component {
-  state = {
-    name: "",
-    term: "",
-    requestedName: "",
-    selectedIndex: 0,
-    navItems: [],
-    imageList: [],
-    imageListWidth: 0,
-    loading: false,
-    images: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      term: "",
+      requestedName: "",
+      selectedIndex: 0,
+      navItems: [],
+      imageList: [],
+      imageListWidth: 0,
+      loading: false,
+      images: []
+    };
+    this.searchButtonRef = React.createRef();
+    this.imageListRef = React.createRef();
+  }
 
   //for test
   // componentDidMount() {
@@ -50,9 +55,6 @@ class App extends Component {
       this.setState({ imageListWidth: this.imageListRef.current.offsetWidth });
     }
   }
-
-  searchButtonRef = React.createRef();
-  imageListRef = React.createRef();
 
   isInputEmpty = () => {
     return !this.state.term;
@@ -237,6 +239,13 @@ class App extends Component {
             onClick={this.handleSubmit}
             onKeyDown={this.handleKeyDown}
           />
+          <button
+            ref={this.searchButtonRef}
+            className="ui yellow button disabled"
+            onClick={this.handleSubmit}
+          >
+            Search
+          </button>
           {this.renderResultComponents()}
         </React.StrictMode>
       </main>

@@ -38,14 +38,11 @@ li.item.active {
 }
 
 /* Search */
-.search {
-  margin-bottom: 30px;
-}
 .ui.input.search {
   display: block;
   max-width: 300px;
   margin: 0 auto;
-  margin-bottom: 70px;
+  margin-bottom: 20px !important;
 }
 .ui.input.search input {
   display: block;
@@ -57,7 +54,7 @@ li.item.active {
 button {
   display: block !important;
   margin: 0 auto !important;
-  margin-top: 20px !important;
+  margin-bottom: 70px !important;
 }
 
 /* ImageList */

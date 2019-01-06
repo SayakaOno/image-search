@@ -1,8 +1,6 @@
 import React from "react";
 
-const Search = React.forwardRef((props, ref) => {
-  const { name, term, onChange, onClick, onKeyDown } = props;
-
+const Search = ({ name, term, onChange, onKeyDown }) => {
   return (
     <div className="ui input search">
       <input
@@ -20,11 +18,8 @@ const Search = React.forwardRef((props, ref) => {
         onKeyDown={onKeyDown}
         placeholder="menu"
       />
-      <button ref={ref} className="ui yellow button disabled" onClick={onClick}>
-        Search
-      </button>
     </div>
   );
-});
+};
 
 export default Search;
