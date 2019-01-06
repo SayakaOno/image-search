@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 const ImageList = React.forwardRef((props, ref) => {
   const renderMoreButton = () => {
@@ -14,39 +14,20 @@ const ImageList = React.forwardRef((props, ref) => {
     );
   };
 
-  // const items = React.Children.map(props.list, (item, index) => {
-  //   return (
-  //     <li key={index}>
-  //       <img src={item} />
-  //     </li>
-  //   );
-  // });
-
   const images = props.images
     ? props.images[0].list.map((image, index) => {
         return (
           <li key={image.title.slice(0, 6) + index}>
-            <img src={image.link} />
+            <img src={image.link} alt={image.title} />
           </li>
         );
       })
     : null;
 
   return props.list === undefined ? null : (
-    <div
-      ref={ref}
-      className="image-list ui bottom attached active tab segment"
-      // style={{
-      //   height: document.documentElement.clientHeight - 60
-      // }}
-    >
+    <div ref={ref} className="image-list ui bottom attached active tab segment">
       <i className="fas fa-times-circle" onClick={props.onRemove} />
-      <div
-        className="image-frame"
-        // style={{
-        //   height: document.documentElement.clientHeight - 100
-        // }}
-      >
+      <div className="image-frame">
         <div>
           <ul className="ui small images">{images}</ul>
           {renderMoreButton()}

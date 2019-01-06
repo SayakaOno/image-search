@@ -123,7 +123,6 @@ class App extends Component {
 
         images = this.state.images.slice();
         images[selectedIndex][0].list = updatedImages;
-        console.log(images);
       }
 
       if (e && !this.state.term) {
@@ -144,7 +143,6 @@ class App extends Component {
           images
         };
       });
-      console.log(images);
     } catch (e) {
       this.setState({ loading: false, term: "" });
       setTimeout(

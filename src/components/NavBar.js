@@ -58,7 +58,6 @@ class NavBar extends Component {
   }
 
   renderItems = () => {
-    // console.log(this.props.images);
     return this.props.images.map((item, index) => {
       let active = index === this.props.selectedIndex ? " active" : "";
       return (
@@ -66,12 +65,7 @@ class NavBar extends Component {
           {item[0].term}
         </li>
       );
-      // console.log(item[0].term);
     });
-    // return React.Children.map(this.props.images, (item, index) => {
-    //   let active = index === this.props.selectedIndex ? " active" : "";
-    //   return <li className={"item" + active}>{}</li>;
-    // });
   };
 
   onNavClick = e => {
