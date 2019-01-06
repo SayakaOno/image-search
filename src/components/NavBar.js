@@ -1,13 +1,22 @@
 import React, { Component } from "react";
 
 class NavBar extends Component {
-  state = { ulWidth: 0, itemCount: 0 };
+  constructor(props) {
+    super(props);
+
+    this.state = { ulWidth: 0, itemCount: 0 };
+    this.ulRef = React.createRef();
+  }
 
   componentDidMount() {
     this.setState({ itemCount: this.props.items.length });
   }
 
   componentDidUpdate() {
+    if (this.state.ulWidth || !this.ulRef.current) {
+      return;
+    }
+    this.ulRef.current.style.width = this.getUlWidth();
     if (this.state.itemCount !== this.props.items.length) {
       this.setState({ itemCount: this.props.items.length });
     } else {
@@ -80,6 +89,7 @@ class NavBar extends Component {
       <div className="navbar">
         <div className="navbar-container">
           <ul
+            ref={this.ulRef}
             className="ui top tabular menu"
             onClick={this.onNavClick}
             style={{

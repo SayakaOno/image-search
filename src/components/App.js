@@ -31,11 +31,13 @@ class App extends Component {
   // fixResultComponent() {
   //   const imageframe = document.querySelector(".image-frame");
   //   if (document.querySelector(".navbar").getBoundingClientRect().top > 10) {
-  //     imageframe.style.overflowY = "hidden";
-  //     imageframe.style.paddingRight = "10px";
+  //     document.querySelector(".navbar").style.position = "relative";
+  //     // imageframe.style.overflowY = "hidden";
+  //     // imageframe.style.paddingRight = "10px";
   //   } else {
-  //     imageframe.style.overflowY = "scroll";
-  //     imageframe.style.paddingRight = 0;
+  //     document.querySelector(".navbar").style.position = "fixed";
+  //     // imageframe.style.overflowY = "scroll";
+  //     // imageframe.style.paddingRight = 0;
   //   }
   // }
 

@@ -6,6 +6,9 @@ main {
 /* NavBar */
 .navbar {
   overflow: hidden;
+  position: relative;
+  width: fit-content;
+  margin-left: -1px;
 }
 .navbar-container {
   width: 100%;
@@ -19,6 +22,7 @@ main {
   box-sizing: content-box;
   padding-left: 10px;
   padding-right: 10px;
+  box-sizing: border-box !important;
 }
 .navbar ul {
   padding-left: 0;
@@ -35,6 +39,16 @@ li.item.active {
 }
 .navbar li:hover {
   cursor: pointer;
+}
+.navbar:after {
+  content: "";
+  height: 10px;
+  background-color: #fff;
+  margin-top: -10px;
+  position: absolute;
+  width: 100%;
+  border-right: 1px solid #d4d4d5;
+  border-left: 1px solid #d4d4d5;
 }
 
 /* Search */
@@ -70,16 +84,16 @@ button {
   padding: 0.3em 0.5em;
 }
 .image-list {
-  margin-top: -11px !important; /*TODO: need to calculate*/
+  position: relative;
 }
 .image-list i {
   color: #999;
-  position: sticky;
+  position: absolute;
   top: 0;
-  left: 0;
+  left: 10px;
 }
 .image-list ul {
-  padding-left: 20px;
+  padding-left: 0px;
 }
 .image-list ul:after {
   display: table;
