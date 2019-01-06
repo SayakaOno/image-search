@@ -102,8 +102,8 @@ class App extends Component {
         selectedIndex = this.state.imageList.length;
 
         //* for new state *//
-        let newImage = { term: this.state.term, list: data };
-        images = this.state.images.concat(newImage);
+        let newImage = [{ term: this.state.term, list: data }];
+        images = this.state.images.concat([newImage]);
       } else {
         const updatedList = this.state.imageList[
           this.state.selectedIndex
@@ -117,11 +117,13 @@ class App extends Component {
         imageList[this.state.selectedIndex] = updatedList;
 
         //* for new state *//
-        const updatedImages = this.state.images[selectedIndex].list.concat(
+        const updatedImages = this.state.images[selectedIndex][0].list.concat(
           data
         );
+
         images = this.state.images.slice();
-        images[selectedIndex].list = updatedImages;
+        images[selectedIndex][0].list = updatedImages;
+        console.log(images);
       }
 
       if (e && !this.state.term) {
@@ -168,13 +170,13 @@ class App extends Component {
     }
 
     if (this.state.requestedName !== this.state.name) {
-      this.setState({ navItems: [], imageList: [] });
+      this.setState({ navItems: [], imageList: [], images: [] });
     }
     this.onSearchSubmit(1, e);
   };
 
   handleSelect = item => {
-    const index = this.state.navItems.indexOf(item);
+    const index = this.state.images.findIndex(image => image[0].term === item);
     this.setState({ selectedIndex: index });
   };
 
@@ -188,7 +190,7 @@ class App extends Component {
 
   removeNavItem = () => {
     const selectedIndex = Math.min(
-      this.state.navItems.length - 2,
+      this.state.images.length - 2,
       this.state.selectedIndex
     );
     this.setState(prevState => {
@@ -199,13 +201,16 @@ class App extends Component {
         imageList: prevState.imageList.filter((item, index) => {
           return this.state.selectedIndex !== index;
         }),
+        images: prevState.images.filter((item, index) => {
+          return this.state.selectedIndex !== index;
+        }),
         selectedIndex
       };
     });
   };
 
   renderResultComponents = () => {
-    const { navItems, selectedIndex, imageList } = this.state;
+    const { navItems, selectedIndex, imageList, images } = this.state;
     return (
       <React.Fragment>
         <NavBar
@@ -213,6 +218,7 @@ class App extends Component {
           onSelect={this.handleSelect}
           selectedIndex={selectedIndex}
           imageListWidth={this.state.imageListWidth}
+          images={images}
         />
         {this.state.loading ? (
           <Loader />

@@ -9,15 +9,15 @@ class NavBar extends Component {
   }
 
   componentDidMount() {
-    this.setState({ itemCount: this.props.items.length });
+    this.setState({ itemCount: this.props.images.length });
   }
 
   componentDidUpdate() {
     if (!this.ulRef.current || !this.props.imageListWidth) {
       return;
     }
-    if (this.state.itemCount !== this.props.items.length) {
-      this.setState({ itemCount: this.props.items.length });
+    if (this.state.itemCount !== this.props.images.length) {
+      this.setState({ itemCount: this.props.images.length });
     } else {
       return;
     }
@@ -58,10 +58,20 @@ class NavBar extends Component {
   }
 
   renderItems = () => {
-    return React.Children.map(this.props.items, (item, index) => {
+    // console.log(this.props.images);
+    return this.props.images.map((item, index) => {
       let active = index === this.props.selectedIndex ? " active" : "";
-      return <li className={"item" + active}>{item}</li>;
+      return (
+        <li className={"item" + active} key={item[0].term}>
+          {item[0].term}
+        </li>
+      );
+      // console.log(item[0].term);
     });
+    // return React.Children.map(this.props.images, (item, index) => {
+    //   let active = index === this.props.selectedIndex ? " active" : "";
+    //   return <li className={"item" + active}>{}</li>;
+    // });
   };
 
   onNavClick = e => {
@@ -85,7 +95,7 @@ class NavBar extends Component {
   };
 
   render() {
-    return this.props.items.length === 0 ? null : (
+    return this.props.images.length === 0 ? null : (
       <div className="navbar">
         <div className="navbar-container">
           <ul
