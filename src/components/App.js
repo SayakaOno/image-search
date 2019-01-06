@@ -14,8 +14,6 @@ class App extends Component {
       term: "",
       requestedName: "",
       selectedIndex: 0,
-      navItems: [],
-      imageList: [],
       imageListWidth: 0,
       loading: false,
       images: []
@@ -78,7 +76,7 @@ class App extends Component {
     try {
       // for load more
       if (!term) {
-        term = this.state.navItems[this.state.selectedIndex];
+        term = this.state.images[this.state.selectedIndex][0].term;
       }
       const response = await google.get(url, {
         params: {
@@ -89,38 +87,17 @@ class App extends Component {
         }
       });
       let data = response.data.items;
-      let imageList = [];
       let selectedIndex = this.state.selectedIndex;
       let images = [];
 
       if (start === 1) {
-        imageList = [];
-        data.forEach(item => {
-          imageList.push(item.link);
-        });
-        imageList = [...this.state.imageList, imageList];
-        selectedIndex = this.state.imageList.length;
-
-        //* for new state *//
         let newImage = [{ term: this.state.term, list: data }];
         images = this.state.images.concat([newImage]);
+        selectedIndex = images.length - 1;
       } else {
-        const updatedList = this.state.imageList[
-          this.state.selectedIndex
-        ].slice();
-        data.forEach(item => {
-          updatedList.push(item.link);
-        });
-        imageList = this.state.imageList.map(function(arr) {
-          return arr.slice();
-        });
-        imageList[this.state.selectedIndex] = updatedList;
-
-        //* for new state *//
         const updatedImages = this.state.images[selectedIndex][0].list.concat(
           data
         );
-
         images = this.state.images.slice();
         images[selectedIndex][0].list = updatedImages;
       }
@@ -129,15 +106,9 @@ class App extends Component {
         return;
       }
       this.setState(prevState => {
-        let navItems = [...prevState.navItems];
-        if (start === 1) {
-          navItems.push(this.state.term);
-        }
         return {
           term: "",
-          navItems,
           selectedIndex,
-          imageList,
           requestedName: this.state.name,
           loading: false,
           images
@@ -160,16 +131,16 @@ class App extends Component {
       alert("Please enter menu!");
       return;
     }
-    const selectedIndex = this.state.navItems.findIndex(
-      item => item === this.state.term
-    );
+    const selectedIndex = this.state.images.findIndex(item => {
+      return item[0].term === this.state.term;
+    });
     if (selectedIndex !== -1) {
       this.setState({ selectedIndex, term: "" });
       return;
     }
 
     if (this.state.requestedName !== this.state.name) {
-      this.setState({ navItems: [], imageList: [], images: [] });
+      this.setState({ images: [] });
     }
     this.onSearchSubmit(1, e);
   };
@@ -194,12 +165,6 @@ class App extends Component {
     );
     this.setState(prevState => {
       return {
-        navItems: prevState.navItems.filter((item, index) => {
-          return this.state.selectedIndex !== index;
-        }),
-        imageList: prevState.imageList.filter((item, index) => {
-          return this.state.selectedIndex !== index;
-        }),
         images: prevState.images.filter((item, index) => {
           return this.state.selectedIndex !== index;
         }),
@@ -209,11 +174,10 @@ class App extends Component {
   };
 
   renderResultComponents = () => {
-    const { navItems, selectedIndex, imageList, images } = this.state;
+    const { selectedIndex, images } = this.state;
     return (
       <React.Fragment>
         <NavBar
-          items={navItems}
           onSelect={this.handleSelect}
           selectedIndex={selectedIndex}
           imageListWidth={this.state.imageListWidth}
@@ -224,7 +188,6 @@ class App extends Component {
         ) : (
           <ImageList
             ref={this.imageListRef}
-            list={imageList[selectedIndex]}
             images={images[selectedIndex]}
             onRemove={this.removeNavItem}
             onLoadMore={this.onSearchSubmit}

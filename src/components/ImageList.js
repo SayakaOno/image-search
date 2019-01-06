@@ -2,7 +2,7 @@ import React from "react";
 
 const ImageList = React.forwardRef((props, ref) => {
   const renderMoreButton = () => {
-    let startNum = props.list.length + 1;
+    let startNum = props.images.length + 1;
     if (startNum > 100) return null;
     return (
       <button
@@ -24,7 +24,7 @@ const ImageList = React.forwardRef((props, ref) => {
       })
     : null;
 
-  return props.list === undefined ? null : (
+  return props.images === undefined ? null : (
     <div ref={ref} className="image-list ui bottom attached active tab segment">
       <i className="fas fa-times-circle" onClick={props.onRemove} />
       <div className="image-frame">
