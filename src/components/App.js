@@ -144,6 +144,7 @@ class App extends Component {
           images
         };
       });
+      console.log(images);
     } catch (e) {
       this.setState({ loading: false, term: "" });
       setTimeout(
@@ -226,6 +227,7 @@ class App extends Component {
           <ImageList
             ref={this.imageListRef}
             list={imageList[selectedIndex]}
+            images={images[selectedIndex]}
             onRemove={this.removeNavItem}
             onLoadMore={this.onSearchSubmit}
           />

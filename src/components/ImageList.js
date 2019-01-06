@@ -14,13 +14,23 @@ const ImageList = React.forwardRef((props, ref) => {
     );
   };
 
-  const items = React.Children.map(props.list, (item, index) => {
-    return (
-      <li key={index}>
-        <img src={item} />
-      </li>
-    );
-  });
+  // const items = React.Children.map(props.list, (item, index) => {
+  //   return (
+  //     <li key={index}>
+  //       <img src={item} />
+  //     </li>
+  //   );
+  // });
+
+  const images = props.images
+    ? props.images[0].list.map((image, index) => {
+        return (
+          <li key={image.title.slice(0, 6) + index}>
+            <img src={image.link} />
+          </li>
+        );
+      })
+    : null;
 
   return props.list === undefined ? null : (
     <div
@@ -38,7 +48,7 @@ const ImageList = React.forwardRef((props, ref) => {
         // }}
       >
         <div>
-          <ul className="ui small images">{items}</ul>
+          <ul className="ui small images">{images}</ul>
           {renderMoreButton()}
         </div>
       </div>
