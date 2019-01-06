@@ -95,22 +95,6 @@ button {
 .image-list ul {
   padding-left: 0px;
 }
-/* .image-list ul:after {
-  display: table;
-  content: "";
-  clear: both;
-}
-.image-list ul li {
-  float: left;
-  width: 33%;
-  height: 150px;
-  overflow: hidden;
-}
-.image-list ul li img {
-  max-width: 120%;
-  width: 120% !important;
-  height: auto !important;
-} */
 .image-list button {
   margin-top: 20px !important;
   margin-bottom: 30px !important;
@@ -127,9 +111,21 @@ button {
   grid-gap: 0 10px;
   grid-auto-rows: 10px;
 }
-
 .image-ul img {
   width: 250px;
+}
+
+@media only screen and (max-width: 768px) {
+  main {
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+  }
+  .image-ul {
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  }
+  .image-ul img {
+    width: 100%;
+  }
 }
 
 /* Loader */

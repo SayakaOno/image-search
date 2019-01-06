@@ -11,6 +11,11 @@ class ImageCard extends React.Component {
 
   componentDidMount() {
     this.imageRef.current.addEventListener("load", this.setSpans);
+    window.addEventListener("resize", this.setSpans);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.setSpans);
   }
 
   setSpans = () => {
