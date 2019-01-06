@@ -106,6 +106,9 @@ class App extends Component {
         });
         imageList[this.state.selectedIndex] = updatedList;
       }
+      if (!(this.state.term && imageList)) {
+        return;
+      }
       this.setState(prevState => {
         let navItems = [...prevState.navItems];
         navItems.push(this.state.term);
