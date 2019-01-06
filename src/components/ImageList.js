@@ -1,4 +1,5 @@
 import React from "react";
+import ImageCard from "./ImageCard";
 
 const ImageList = React.forwardRef((props, ref) => {
   const renderMoreButton = () => {
@@ -17,9 +18,11 @@ const ImageList = React.forwardRef((props, ref) => {
   const images = props.images
     ? props.images[0].list.map((image, index) => {
         return (
-          <li key={image.title.slice(0, 6) + index}>
-            <img src={image.link} alt={image.title} />
-          </li>
+          <ImageCard
+            image={image}
+            inedex={index}
+            key={image.title.slice(0, 6) + index}
+          />
         );
       })
     : null;
@@ -29,7 +32,7 @@ const ImageList = React.forwardRef((props, ref) => {
       <i className="fas fa-times-circle" onClick={props.onRemove} />
       <div className="image-frame">
         <div>
-          <ul className="ui small images">{images}</ul>
+          <ul className="ui images image-ul">{images}</ul>
           {renderMoreButton()}
         </div>
       </div>
