@@ -23,7 +23,6 @@ main {
 }
 .navbar .ui.menu {
   display: block !important;
-  margin-bottom: 1px !important;
   box-sizing: content-box;
   padding-left: 10px;
   padding-right: 10px;
