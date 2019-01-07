@@ -24,7 +24,6 @@ class NavBar extends Component {
     const lis = document.querySelectorAll(".navbar li");
     const ulWidth = this.getItemsWidth(lis);
     if (this.state.ulWidth !== ulWidth) {
-      console.log("new ulwidth set");
       this.setState(() => {
         return { ulWidth };
       });

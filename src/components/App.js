@@ -29,26 +29,50 @@ class App extends Component {
   fixResultComponent() {
     const imageList = document.querySelector(".image-list");
     const navbar = document.querySelector(".navbar");
+    const closeButton = document.querySelector(".image-list i");
     if (navbar.getBoundingClientRect().top > 10) {
       navbar.style.position = "relative";
+      try {
+        if (
+          imageList.getBoundingClientRect().top >
+          navbar.getBoundingClientRect().bottom
+        ) {
+          navbar.style.position = "relative";
+          closeButton.style.position = "absolute";
+          closeButton.style.top = "-13px";
+          closeButton.style.left = "10px";
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        navbar.style.position = "fixed";
+        navbar.style.top = "0";
+        navbar.style.paddingTop = "5px";
+        navbar.style.width =
+          document.querySelector(".image-list").offsetWidth + "px";
+        closeButton.style.position = "fixed";
+        closeButton.style.top =
+          navbar.getBoundingClientRect().bottom - 14 + "px";
+        closeButton.style.left =
+          navbar.getBoundingClientRect().left + 10 + "px";
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    try {
       if (
         imageList.getBoundingClientRect().top >
         navbar.getBoundingClientRect().bottom
       ) {
         navbar.style.position = "relative";
+        closeButton.style.position = "absolute";
+        closeButton.style.top = "-13px";
+        closeButton.style.left = "10px";
       }
-    } else {
-      navbar.style.position = "fixed";
-      navbar.style.top = "0";
-      navbar.style.paddingTop = "5px";
-      navbar.style.width =
-        document.querySelector(".image-list").offsetWidth + "px";
-    }
-    if (
-      imageList.getBoundingClientRect().top >
-      navbar.getBoundingClientRect().bottom
-    ) {
-      navbar.style.position = "relative";
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -162,7 +186,7 @@ class App extends Component {
     }
 
     if (this.state.requestedName !== this.state.name) {
-      this.setState({ images: [] });
+      this.setState({ images: [], requestedName: "" });
     }
     this.onSearchSubmit(1, e);
   };
@@ -205,7 +229,7 @@ class App extends Component {
           imageListWidth={this.state.imageListWidth}
           images={images}
         />
-        {this.state.loading ? (
+        {this.state.loading && !this.state.requestedName ? (
           <Loader />
         ) : (
           <ImageList
