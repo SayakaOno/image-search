@@ -4,26 +4,27 @@ class NavBar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { ulWidth: 0, itemCount: 0 };
+    this.state = { ulWidth: 0, imageListWidth: 0 };
     this.ulRef = React.createRef();
   }
 
   componentDidMount() {
-    this.setState({ itemCount: this.props.images.length });
+    this.setState({ imageListWidth: this.props.imageListWidth });
   }
 
   componentDidUpdate() {
     if (!this.ulRef.current || !this.props.imageListWidth) {
       return;
     }
-    if (this.state.itemCount !== this.props.images.length) {
-      this.setState({ itemCount: this.props.images.length });
+    if (this.state.imageListWidth !== this.props.imageListWidth) {
+      this.setState({ imageListWidth: this.props.imageListWidth });
     } else {
       return;
     }
     const lis = document.querySelectorAll(".navbar li");
     const ulWidth = this.getItemsWidth(lis);
     if (this.state.ulWidth !== ulWidth) {
+      console.log("new ulwidth set");
       this.setState(() => {
         return { ulWidth };
       });

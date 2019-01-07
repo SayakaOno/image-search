@@ -26,26 +26,41 @@ class App extends Component {
   // componentDidMount() {
   //   this.setState(testdata);
   // }
-  // fixResultComponent() {
-  //   const imageframe = document.querySelector(".image-frame");
-  //   if (document.querySelector(".navbar").getBoundingClientRect().top > 10) {
-  //     document.querySelector(".navbar").style.position = "relative";
-  //     // imageframe.style.overflowY = "hidden";
-  //     // imageframe.style.paddingRight = "10px";
-  //   } else {
-  //     document.querySelector(".navbar").style.position = "fixed";
-  //     // imageframe.style.overflowY = "scroll";
-  //     // imageframe.style.paddingRight = 0;
-  //   }
-  // }
+  fixResultComponent() {
+    const imageList = document.querySelector(".image-list");
+    const navbar = document.querySelector(".navbar");
+    if (navbar.getBoundingClientRect().top > 10) {
+      navbar.style.position = "relative";
+      if (
+        imageList.getBoundingClientRect().top >
+        navbar.getBoundingClientRect().bottom
+      ) {
+        navbar.style.position = "relative";
+      }
+    } else {
+      navbar.style.position = "fixed";
+      navbar.style.top = "0";
+      navbar.style.paddingTop = "5px";
+      navbar.style.width =
+        document.querySelector(".image-list").offsetWidth + "px";
+    }
+    if (
+      imageList.getBoundingClientRect().top >
+      navbar.getBoundingClientRect().bottom
+    ) {
+      navbar.style.position = "relative";
+    }
+  }
 
-  // componentDidMount() {
-  //   window.addEventListener("scroll", this.fixResultComponent);
-  // }
+  componentDidMount() {
+    window.addEventListener("scroll", this.fixResultComponent);
+    window.addEventListener("resize", this.setImageListWidth);
+  }
 
-  // componentWillUnmount() {
-  //   window.removeEventListener("scroll", this.fixResultComponent);
-  // }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.fixResultComponent);
+    window.removeEventListener("resize", this.setImageListWidth);
+  }
 
   componentDidUpdate() {
     if (!this.imageListRef.current) {
@@ -55,6 +70,13 @@ class App extends Component {
       this.setState({ imageListWidth: this.imageListRef.current.offsetWidth });
     }
   }
+
+  setImageListWidth = () => {
+    if (!this.imageListRef.current) {
+      return;
+    }
+    this.setState({ imageListWidth: this.imageListRef.current.offsetWidth });
+  };
 
   isInputEmpty = () => {
     return !this.state.term;
