@@ -18,8 +18,6 @@ class NavBar extends Component {
     }
     if (this.state.imageListWidth !== this.props.imageListWidth) {
       this.setState({ imageListWidth: this.props.imageListWidth });
-    } else {
-      return;
     }
     const lis = document.querySelectorAll(".navbar li");
     const ulWidth = this.getItemsWidth(lis);

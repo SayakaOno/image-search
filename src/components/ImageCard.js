@@ -19,11 +19,15 @@ class ImageCard extends React.Component {
   }
 
   setSpans = () => {
-    const height = this.imageRef.current.clientHeight;
+    try {
+      const height = this.imageRef.current.clientHeight;
 
-    const spans = Math.ceil(height / 10);
+      const spans = Math.ceil(height / 10);
 
-    this.setState({ spans });
+      this.setState({ spans });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   render() {
