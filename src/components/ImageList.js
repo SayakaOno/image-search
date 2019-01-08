@@ -3,7 +3,7 @@ import ImageCard from "./ImageCard";
 
 const ImageList = React.forwardRef((props, ref) => {
   const renderMoreButton = () => {
-    let startNum = props.images.length + 1;
+    let startNum = props.images[0].list.length + 1;
     if (startNum > 100) return null;
     return (
       <button
