@@ -148,9 +148,7 @@ button {
 
 /* Loader */
 .loader-frame {
-  border: 1px solid #d4d4d5;
   margin: 0 !important;
-  margin-top: -11px !important;
 }
 .loader-frame .ui.loader {
   top: 25% !important;
