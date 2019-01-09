@@ -133,6 +133,9 @@ class App extends Component {
         }
       });
       let data = response.data.items;
+      if (!data) {
+        throw Error;
+      }
       let selectedIndex = this.state.selectedIndex;
       let images = [];
 
