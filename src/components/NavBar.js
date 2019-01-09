@@ -74,15 +74,24 @@ class NavBar extends Component {
 
   handleScroll = selectedNav => {
     let listItems = document.querySelectorAll(".navbar li");
+    let navbarContainer = document.querySelector(".navbar-container");
     if (
-      document.querySelector(".navbar-container").getBoundingClientRect().left >
+      navbarContainer.getBoundingClientRect().left >
       selectedNav.getBoundingClientRect().left
     ) {
-      document.querySelector(".navbar-container").scrollLeft =
+      navbarContainer.scrollLeft =
         this.getItemsWidth(
           listItems,
           [].slice.call(listItems).indexOf(selectedNav)
         ) - 20;
+    } else if (
+      navbarContainer.getBoundingClientRect().right <
+      selectedNav.getBoundingClientRect().right
+    ) {
+      navbarContainer.scrollLeft = this.getItemsWidth(
+        listItems,
+        [].slice.call(listItems).indexOf(selectedNav)
+      );
     }
   };
 

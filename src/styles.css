@@ -20,6 +20,7 @@ main {
   height: 100%;
   overflow-x: scroll;
   box-sizing: content-box;
+  scroll-behavior: smooth;
 }
 .navbar .ui.menu {
   display: block !important;
@@ -148,8 +149,13 @@ button {
 
 /* Loader */
 .loader-frame {
+  border: none !important;
   margin: 0 !important;
 }
 .loader-frame .ui.loader {
   top: 25% !important;
+}
+.ui.segment.loader-frame {
+  box-shadow: none !important;
+  -webkit-box-shadow: 0 !important;
 }
