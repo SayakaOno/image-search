@@ -28,8 +28,11 @@ const ImageList = React.forwardRef((props, ref) => {
     : null;
 
   return props.images === undefined ? null : (
-    <div ref={ref} className="image-list ui bottom attached active tab segment">
-      <i className="fas fa-times-circle" onClick={props.onRemove} />
+    <div
+      ref={ref}
+      className="image-list ui bottom attached active tab segment"
+      style={{ height: props.height }}
+    >
       <div className="image-frame">
         <div>
           <ul className="ui images image-ul">{images}</ul>

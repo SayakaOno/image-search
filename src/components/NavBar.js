@@ -107,6 +107,7 @@ class NavBar extends Component {
             {this.renderItems()}
           </ul>
         </div>
+        <i className="fas fa-times-circle" onClick={this.props.onRemove} />
       </div>
     );
   }

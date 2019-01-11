@@ -16,7 +16,8 @@ class App extends Component {
       selectedIndex: 0,
       imageListWidth: 0,
       loading: false,
-      images: []
+      images: [],
+      screenHeight: 0
     };
     this.searchButtonRef = React.createRef();
     this.imageListRef = React.createRef();
@@ -31,54 +32,20 @@ class App extends Component {
     const navbar = document.querySelector(".navbar");
     const closeButton = document.querySelector(".image-list i");
     if (navbar.getBoundingClientRect().top > 10) {
-      navbar.style.position = "relative";
-      try {
-        if (
-          imageList.getBoundingClientRect().top >
-          navbar.getBoundingClientRect().bottom
-        ) {
-          navbar.style.position = "relative";
-          closeButton.style.position = "absolute";
-          closeButton.style.top = "-13px";
-          closeButton.style.left = "10px";
-        }
-      } catch (err) {
-        console.log(err);
-      }
+      imageList.style.overflowY = "hidden";
     } else {
       try {
-        navbar.style.position = "fixed";
-        navbar.style.top = "0";
-        navbar.style.paddingTop = "5px";
-        navbar.style.width =
-          document.querySelector(".image-list").offsetWidth + "px";
-        closeButton.style.position = "fixed";
-        closeButton.style.top =
-          navbar.getBoundingClientRect().bottom - 14 + "px";
-        closeButton.style.left =
-          navbar.getBoundingClientRect().left + 10 + "px";
+        imageList.style.overflowY = "scroll";
       } catch (err) {
         console.log(err);
       }
-    }
-    try {
-      if (
-        imageList.getBoundingClientRect().top >
-        navbar.getBoundingClientRect().bottom
-      ) {
-        navbar.style.position = "relative";
-        closeButton.style.position = "absolute";
-        closeButton.style.top = "-13px";
-        closeButton.style.left = "10px";
-      }
-    } catch (err) {
-      console.log(err);
     }
   }
 
   componentDidMount() {
     window.addEventListener("scroll", this.fixResultComponent);
     window.addEventListener("resize", this.setImageListWidth);
+    this.setState({ screenHeight: document.documentElement.clientHeight });
   }
 
   componentWillUnmount() {
@@ -231,14 +198,15 @@ class App extends Component {
           selectedIndex={selectedIndex}
           imageListWidth={this.state.imageListWidth}
           images={images}
+          onRemove={this.removeNavItem}
         />
         {this.state.loading && !this.state.requestedName ? (
           <Loader />
         ) : (
           <ImageList
             ref={this.imageListRef}
+            height={this.state.screenHeight - 80}
             images={images[selectedIndex]}
-            onRemove={this.removeNavItem}
             onLoadMore={this.onSearchSubmit}
           />
         )}

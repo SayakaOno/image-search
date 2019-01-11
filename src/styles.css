@@ -12,7 +12,6 @@ main {
   width: calc(100% + 2px);
   margin-left: -1px;
   background-color: #fff;
-  z-index: 9999;
   padding-bottom: 10px;
 }
 .navbar-container {
@@ -44,6 +43,13 @@ li.item.active {
 }
 .navbar li:hover {
   cursor: pointer;
+}
+.navbar i {
+  color: #999;
+  top: 50px !important;
+  left: 10px;
+  position: absolute;
+  z-index: 9999;
 }
 .navbar:after {
   content: "";
@@ -89,14 +95,7 @@ button {
   padding: 0.3em 0.5em;
 }
 .image-list {
-  position: relative;
-}
-.image-list i {
-  color: #999;
-  position: absolute;
-  top: -13px;
-  z-index: 99999;
-  left: 10px;
+  overflow-y: scroll;
 }
 .image-list ul {
   padding-left: 0px;
