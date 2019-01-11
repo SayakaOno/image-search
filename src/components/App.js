@@ -30,9 +30,8 @@ class App extends Component {
   fixResultComponent() {
     const imageList = document.querySelector(".image-list");
     if (
-      window.pageYOffset + 10 <
-      document.documentElement.scrollHeight -
-        document.documentElement.clientHeight
+      imageList.getBoundingClientRect().top >
+      document.documentElement.clientHeight * 0.4
     ) {
       imageList.style.overflowY = "hidden";
     } else {
@@ -61,6 +60,9 @@ class App extends Component {
     }
     if (this.state.imageListWidth !== this.imageListRef.current.offsetWidth) {
       this.setState({ imageListWidth: this.imageListRef.current.offsetWidth });
+    }
+    if (this.state.screenHeight !== document.documentElement.clientHeight) {
+      this.setState({ screenHeight: document.documentElement.clientHeight });
     }
   }
 

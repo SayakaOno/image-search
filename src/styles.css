@@ -95,7 +95,7 @@ button {
   padding: 0.3em 0.5em;
 }
 .image-list {
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 .image-list ul {
   padding-left: 0px;
