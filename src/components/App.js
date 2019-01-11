@@ -29,9 +29,10 @@ class App extends Component {
   // }
   fixResultComponent() {
     const imageList = document.querySelector(".image-list");
-    const navbar = document.querySelector(".navbar");
-    const closeButton = document.querySelector(".image-list i");
-    if (navbar.getBoundingClientRect().top > 10) {
+    if (
+      imageList.getBoundingClientRect().bottom >
+      document.documentElement.clientHeight - 10
+    ) {
       imageList.style.overflowY = "hidden";
     } else {
       try {
