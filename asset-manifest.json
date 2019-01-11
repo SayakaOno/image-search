@@ -1,7 +1,7 @@
 {
-  "main.css": "/image-search/static/css/main.59d213c4.chunk.css",
-  "main.js": "/image-search/static/js/main.551d5a85.chunk.js",
-  "main.js.map": "/image-search/static/js/main.551d5a85.chunk.js.map",
+  "main.css": "/image-search/static/css/main.93d0af2c.chunk.css",
+  "main.js": "/image-search/static/js/main.6ebbb955.chunk.js",
+  "main.js.map": "/image-search/static/js/main.6ebbb955.chunk.js.map",
   "static/js/1.b5089d77.chunk.js": "/image-search/static/js/1.b5089d77.chunk.js",
   "static/js/1.b5089d77.chunk.js.map": "/image-search/static/js/1.b5089d77.chunk.js.map",
   "runtime~main.js": "/image-search/static/js/runtime~main.430cf7d3.js",
@@ -10,8 +10,8 @@
   "static/media/redvelvetcake.jpg": "/image-search/static/media/redvelvetcake.2fc34d65.jpg",
   "static/media/carrotcake.jpg": "/image-search/static/media/carrotcake.48a57335.jpg",
   "static/media/lemoncake.jpg": "/image-search/static/media/lemoncake.395df99b.jpg",
-  "static/css/main.59d213c4.chunk.css.map": "/image-search/static/css/main.59d213c4.chunk.css.map",
+  "static/css/main.93d0af2c.chunk.css.map": "/image-search/static/css/main.93d0af2c.chunk.css.map",
   "index.html": "/image-search/index.html",
-  "precache-manifest.346093f3f08bc267e5afe1be7dae1790.js": "/image-search/precache-manifest.346093f3f08bc267e5afe1be7dae1790.js",
+  "precache-manifest.47fae54243cbbd18696da3e4533605dd.js": "/image-search/precache-manifest.47fae54243cbbd18696da3e4533605dd.js",
   "service-worker.js": "/image-search/service-worker.js"
 }
