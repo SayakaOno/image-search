@@ -29,6 +29,7 @@ class App extends Component {
   // }
   fixResultComponent() {
     const imageList = document.querySelector(".image-list");
+
     if (
       imageList.getBoundingClientRect().bottom >
       document.documentElement.clientHeight - 10
