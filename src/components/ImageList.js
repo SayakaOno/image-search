@@ -7,7 +7,9 @@ const ImageList = React.forwardRef((props, ref) => {
     if (startNum > 100) return null;
     return (
       <button
-        className="ui orange basic button"
+        className={`ui orange basic button ${
+          props.loading ? " loading" : "null"
+        }`}
         onClick={() => props.onLoadMore(startNum)}
       >
         More

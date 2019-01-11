@@ -154,7 +154,7 @@ class App extends Component {
     const selectedIndex = this.state.images.findIndex(item => {
       return item[0].term === this.state.term;
     });
-    if (selectedIndex !== -1) {
+    if (selectedIndex !== -1 && this.state.name === this.state.requestedName) {
       this.setState({ selectedIndex, term: "" });
       return;
     }
@@ -212,6 +212,7 @@ class App extends Component {
             height={this.state.screenHeight - 80}
             images={images[selectedIndex]}
             onLoadMore={this.onSearchSubmit}
+            loading={this.state.loading}
           />
         )}
       </React.Fragment>

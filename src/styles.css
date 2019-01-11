@@ -119,6 +119,9 @@ button {
 .image-ul img {
   width: 100%;
 }
+.ui.basic.loading.button:not(.inverted):after {
+  border-top-color: orange;
+}
 
 @media only screen and (max-width: 768px) {
   main {
