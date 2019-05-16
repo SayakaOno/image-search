@@ -1,26 +1,41 @@
-import React, { Component } from "react";
-import Search from "./Search";
-import NavBar from "./NavBar";
-import ImageList from "./ImageList";
-import { google, url } from "../api/google";
-import Loader from "./Loader";
-import testdata from "../testdata/data";
+import React, { Component } from 'react';
+import Modal from 'react-modal';
+import Search from './Search';
+import NavBar from './NavBar';
+import ImageList from './ImageList';
+import { google, url } from '../api/google';
+import Loader from './Loader';
+import testdata from '../testdata/data';
+
+Modal.setAppElement(document.getElementById('root'));
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      term: "",
-      requestedName: "",
+      name: '',
+      term: '',
+      requestedName: '',
       selectedIndex: 0,
       imageListWidth: 0,
       loading: false,
       images: [],
-      screenHeight: 0
+      screenHeight: 0,
+      modalIsOpen: false
     };
+
     this.searchButtonRef = React.createRef();
     this.imageListRef = React.createRef();
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+
+  openModal() {
+    this.setState({ modalIsOpen: true });
+  }
+
+  closeModal() {
+    this.setState({ modalIsOpen: false });
   }
 
   //for test
@@ -28,15 +43,18 @@ class App extends Component {
   //   this.setState(testdata);
   // }
   fixResultComponent() {
-    const imageList = document.querySelector(".image-list");
+    const imageList = document.querySelector('.image-list');
+    if (!imageList) {
+      return;
+    }
     if (
       imageList.getBoundingClientRect().top >
       document.documentElement.clientHeight * 0.4
     ) {
-      imageList.style.overflowY = "hidden";
+      imageList.style.overflowY = 'hidden';
     } else {
       try {
-        imageList.style.overflowY = "scroll";
+        imageList.style.overflowY = 'scroll';
       } catch (err) {
         console.log(err);
       }
@@ -44,14 +62,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("scroll", this.fixResultComponent);
-    window.addEventListener("resize", this.setImageListWidth);
+    window.addEventListener('scroll', this.fixResultComponent);
+    window.addEventListener('resize', this.setImageListWidth);
     this.setState({ screenHeight: document.documentElement.clientHeight });
   }
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.fixResultComponent);
-    window.removeEventListener("resize", this.setImageListWidth);
+    window.removeEventListener('scroll', this.fixResultComponent);
+    window.removeEventListener('resize', this.setImageListWidth);
   }
 
   componentDidUpdate() {
@@ -79,11 +97,11 @@ class App extends Component {
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-    const classNames = "ui yellow button";
+    const classNames = 'ui yellow button';
     setTimeout(() => {
       this.state.name || this.state.term
         ? (this.searchButtonRef.current.className = classNames)
-        : (this.searchButtonRef.current.className = classNames + " disabled");
+        : (this.searchButtonRef.current.className = classNames + ' disabled');
     }, 0);
   };
 
@@ -97,8 +115,8 @@ class App extends Component {
       }
       const response = await google.get(url, {
         params: {
-          searchType: "image",
-          q: this.state.name + "+" + term,
+          searchType: 'image',
+          q: this.state.name + '+' + term,
           start: start
           //TODO: gl:
         }
@@ -127,7 +145,7 @@ class App extends Component {
       }
       this.setState(prevState => {
         return {
-          term: "",
+          term: '',
           selectedIndex,
           requestedName: this.state.name,
           loading: false,
@@ -135,7 +153,7 @@ class App extends Component {
         };
       });
     } catch (e) {
-      this.setState({ loading: false, term: "" });
+      this.setState({ loading: false, term: '' });
       setTimeout(
         () =>
           alert(
@@ -148,19 +166,19 @@ class App extends Component {
 
   handleSubmit = e => {
     if (this.isInputEmpty()) {
-      alert("Please enter menu!");
+      alert('Please enter menu!');
       return;
     }
     const selectedIndex = this.state.images.findIndex(item => {
       return item[0].term === this.state.term;
     });
     if (selectedIndex !== -1 && this.state.name === this.state.requestedName) {
-      this.setState({ selectedIndex, term: "" });
+      this.setState({ selectedIndex, term: '' });
       return;
     }
 
     if (this.state.requestedName !== this.state.name) {
-      this.setState({ images: [], requestedName: "" });
+      this.setState({ images: [], requestedName: '' });
     }
     this.onSearchSubmit(1, e);
   };
@@ -172,7 +190,7 @@ class App extends Component {
 
   // shouldn't work when Japanese typed
   handleKeyDown = e => {
-    if (e.key !== "Enter") {
+    if (e.key !== 'Enter') {
       return;
     }
     this.handleSubmit();
@@ -224,6 +242,52 @@ class App extends Component {
     return (
       <main>
         <React.StrictMode>
+          <h1>
+            Image search
+            <span
+              onClick={this.openModal}
+              data-tooltip='instruction'
+              data-position='right center'
+            >
+              ?
+            </span>
+          </h1>
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            onRequestClose={this.closeModal}
+          >
+            <div className='ui modal active'>
+              <i className='close icon' onClick={this.closeModal} />
+              <div className='header'>Instructions</div>
+              <div className='content'>
+                <div className='description'>
+                  <ol>
+                    <li>
+                      Type restaurant and menu name
+                      <i>Ex. Medina & waffle </i>
+                    </li>
+                    <li>Press search button</li>
+                    <li>
+                      Keep searching with different menu until you find what you
+                      want to try!
+                      <br />
+                      <i>Ex. Paella, Cassoulet</i>{' '}
+                    </li>
+                  </ol>
+                  <p> Enjoy! :)</p>
+                </div>
+              </div>
+              <div className='actions'>
+                <div
+                  className='ui right labeled icon button'
+                  onClick={this.closeModal}
+                >
+                  Got it!
+                  <i className='checkmark icon' />
+                </div>
+              </div>
+            </div>
+          </Modal>
           <Search
             ref={this.searchButtonRef}
             name={name}
@@ -234,7 +298,7 @@ class App extends Component {
           />
           <button
             ref={this.searchButtonRef}
-            className="ui yellow button disabled"
+            className='ui yellow button disabled'
             onClick={this.handleSubmit}
           >
             Search

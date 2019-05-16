@@ -5,6 +5,65 @@ main {
   margin: 0 auto;
 }
 
+h1 {
+  text-align: center;
+  margin-bottom: 1em;
+}
+h1 span {
+  display: inline-block;
+  border-radius: 50%;
+  font-size: 0.5em;
+  width: 1.2em;
+  height: 1.2em;
+  line-height: 1.2em;
+  margin-left: 5px;
+  color: #fff;
+  border: solid 1px #00b5ad;
+  background-color: #00b5ad;
+}
+h1 span:hover {
+  cursor: pointer;
+  transition: all 200ms;
+}
+h1 span:hover:after {
+  padding: 5px 10px;
+}
+.instruction-button {
+  margin-bottom: 0 !important;
+}
+
+/* Modal */
+.ReactModal__Content.ReactModal__Content--after-open {
+  border: none !important;
+}
+.modal.ui {
+  max-width: 500px !important;
+  margin: 0 auto;
+  position: relative;
+}
+.modal .description ol {
+  padding-left: 0;
+  margin: 0 0 10px 15px;
+}
+.modal .description li i {
+  display: block;
+  margin-left: 5px;
+  color: rgba(0, 0, 0, 0.5);
+}
+.modal .close.icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: rgba(0, 0, 0, 0.85);
+}
+.modal .ui.button {
+  background-color: #fbbd08 !important;
+  color: #fff;
+}
+.modal > .content {
+  font-size: 1.1em !important;
+}
+
 /* NavBar */
 .navbar {
   overflow: hidden;
@@ -52,7 +111,7 @@ li.item.active {
   z-index: 9999;
 }
 .navbar:after {
-  content: "";
+  content: '';
   height: 20px;
   background-color: #fff;
   margin-top: -10px;
