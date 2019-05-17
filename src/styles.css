@@ -9,7 +9,7 @@ h1 {
   text-align: center;
   margin-bottom: 1em;
 }
-h1 span {
+h1 span.pc {
   display: inline-block;
   border-radius: 50%;
   font-size: 0.5em;
@@ -21,15 +21,39 @@ h1 span {
   border: solid 1px #00b5ad;
   background-color: #00b5ad;
 }
-h1 span:hover {
-  cursor: pointer;
-  transition: all 200ms;
-}
-h1 span:hover:after {
+h1 span.pc:hover:after {
   padding: 5px 10px;
 }
-.instruction-button {
-  margin-bottom: 0 !important;
+h1 span.pc:hover:after {
+  display: block;
+}
+h1 span.pc:hover {
+  cursor: pointer;
+}
+h1 span.sm {
+  display: none !important;
+}
+@media only screen and (max-width: 575px) {
+  h1 {
+    position: relative;
+    width: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  h1 span.pc:hover:after,
+  h1 span.pc:hover:before {
+    display: none;
+  }
+  h1 span.sm {
+    display: block !important;
+    position: absolute !important;
+    right: -37px;
+    top: -25px;
+  }
+  h1 span.sm.none {
+    display: none !important;
+    transition: all 600ms;
+  }
 }
 
 /* Modal */

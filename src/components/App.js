@@ -26,6 +26,7 @@ class App extends Component {
 
     this.searchButtonRef = React.createRef();
     this.imageListRef = React.createRef();
+    this.smLabel = React.createRef();
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
@@ -65,6 +66,20 @@ class App extends Component {
     window.addEventListener('scroll', this.fixResultComponent);
     window.addEventListener('resize', this.setImageListWidth);
     this.setState({ screenHeight: document.documentElement.clientHeight });
+    setTimeout(() => {
+      let count = 0;
+      let id = setInterval(() => {
+        if (count < 3) {
+          this.smLabel.current.classList.toggle('none');
+          count++;
+        } else {
+          clearInterval(id);
+          setTimeout(() => {
+            this.smLabel.current.classList.add('none');
+          }, 1500);
+        }
+      }, 700);
+    }, 1000);
   }
 
   componentWillUnmount() {
@@ -245,11 +260,18 @@ class App extends Component {
           <h1>
             Image search
             <span
+              className='pc'
               onClick={this.openModal}
-              data-tooltip='instruction'
+              data-tooltip='instructions'
               data-position='right center'
             >
               ?
+            </span>
+            <span
+              ref={this.smLabel}
+              className='none sm ui pointing below red basic label'
+            >
+              instructions
             </span>
           </h1>
           <Modal
@@ -268,7 +290,7 @@ class App extends Component {
                     </li>
                     <li>Press search button</li>
                     <li>
-                      Keep searching with different menu until you find what you
+                      Keep searching different menus until you find what you
                       want to try!
                       <br />
                       <i>Ex. Paella, Cassoulet</i>{' '}
