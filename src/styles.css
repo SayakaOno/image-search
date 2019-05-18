@@ -33,6 +33,10 @@ h1 span.pc:hover {
 h1 span.sm {
   display: none !important;
 }
+.ui.basic[class*='bottom pointing'].label:before,
+.ui.basic[class*='pointing below'].label:before {
+  z-index: inherit;
+}
 @media only screen and (max-width: 575px) {
   h1 {
     position: relative;
