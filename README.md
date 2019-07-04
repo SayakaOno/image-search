@@ -21,4 +21,4 @@ At a restaurant, do you prefer to look at images of the menus to decide what to 
 Create React App<br/>
 Library: Axios<br/>
 API: Google Custom Search<br/>
-css: [Semantic UI](https://semantic-ui.com)
+CSS: [Semantic UI](https://semantic-ui.com)
